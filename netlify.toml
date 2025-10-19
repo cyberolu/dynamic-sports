@@ -1,0 +1,35 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+  Cache-Control = "public, max-age=0, must-revalidate"
+
+# --- Protect members area ---
+[[redirects]]
+  from = "/members.html"
+  to = "/login.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/members.html"
+  to = "/members.html"
+  status = 200
+  force = true
+  conditions = { Role = ["member"] }
+
+# --- Protect admin area (for Netlify CMS) ---
+[[redirects]]
+  from = "/admin/*"
+  to = "/login.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/:splat"
+  status = 200
+  force = true
+  conditions = { Role = ["admin"] }

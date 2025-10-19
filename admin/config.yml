@@ -1,0 +1,53 @@
+backend:
+  name: git-gateway
+  branch: main  # change this if your Git branch is not 'main'
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+publish_mode: simple
+
+collections:
+  # --- NEWS COLLECTION ---
+  - name: "news"
+    label: "News"
+    files:
+      - label: "News Data"
+        name: "news_data"
+        file: "data/news.json"
+        format: "json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}} ({{fields.date}})"
+            fields:
+              - { label: "ID", name: "id", widget: "string", required: false, hint: "Auto-generated if blank" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+              - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Body", name: "body", widget: "text" }
+
+  # --- COMPETITIONS COLLECTION ---
+  - name: "competitions"
+    label: "Competitions"
+    files:
+      - label: "Competitions Data"
+        name: "comps_data"
+        file: "data/comps.json"
+        format: "json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}} ({{fields.date}})"
+            fields:
+              - { label: "ID", name: "id", widget: "string", required: false, hint: "Auto-generated if blank" }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+              - { label: "Venue", name: "venue", widget: "string" }
+              - { label: "Description", name: "desc", widget: "text", required: false }
+              - label: "Events"
+                name: "events"
+                widget: "list"
+                field: { label: "Event", name: "event", widget: "string" }

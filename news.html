@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Sports — Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/Untitled design(1).svg" />
+  <!-- Netlify Identity Widget -->
+  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img src="assets/Untitled design(1).svg" alt="Dynamic Sports logo"> Dynamic Sports</a>
+      <nav class="nav">
+        <a class="active" href="index.html" aria-current="page">Home</a>
+        <a href="news.html">News</a>
+        <a href="competitions.html">Competitions</a>
+        <a href="members.html">Members</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>News</h1>
+    <div id="newsList" class="grid cards"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© <span id="year"></span> Dynamic Sports.</p>
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
+  <script src="auth.js" defer></script>
+</body>
+</html>

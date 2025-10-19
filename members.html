@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Sports — Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/Untitled design(1).svg" />
+  <!-- Netlify Identity Widget -->
+  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img src="assets/Untitled design(1).svg" alt="Dynamic Sports logo"> Dynamic Sports</a>
+      <nav class="nav">
+        <a class="active" href="index.html" aria-current="page">Home</a>
+        <a href="news.html">News</a>
+        <a href="competitions.html">Competitions</a>
+        <a href="members.html">Members</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h1>Members Area</h1>
+      <p class="muted small">Only logged-in users with the <code>member</code> role can access this page.</p>
+
+      <div class="card" style="margin-top:1rem;">
+        <h2>Profile</h2>
+        <div class="stack">
+          <div><strong>Name:</strong> <span id="profName">—</span></div>
+          <div><strong>Email:</strong> <span id="profEmail">—</span></div>
+          <div><strong>Roles:</strong> <span id="profRoles">—</span></div>
+        </div>
+
+        <div class="stack" style="flex-direction:row;gap:.5rem;margin-top:1rem;">
+          <button id="btnLogout" class="tab" type="button">Log out</button>
+        </div>
+
+        <div id="guardMsg" class="muted small" style="margin-top:.75rem;" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© <span id="year"></span> Dynamic Sports.</p>
+    </div>
+  </footer>
+
+  <!-- Shared auth logic -->
+  <script src="auth.js" defer></script>
+</body>
+</html>
