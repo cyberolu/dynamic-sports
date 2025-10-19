@@ -6,21 +6,7 @@
   [headers.values]
   Cache-Control = "public, max-age=0, must-revalidate"
 
-# --- Protect members area ---
-[[redirects]]
-  from = "/members.html"
-  to = "/login.html"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "/members.html"
-  to = "/members.html"
-  status = 200
-  force = true
-  conditions = { Role = ["member"] }
-
-# --- Protect admin area (for Netlify CMS) ---
+# --- Protect /admin area ---
 [[redirects]]
   from = "/admin/*"
   to = "/login.html"
@@ -29,7 +15,7 @@
 
 [[redirects]]
   from = "/admin/*"
-  to = "/admin/:splat"
+  to = "/admin/index.html"
   status = 200
   force = true
   conditions = { Role = ["admin"] }
