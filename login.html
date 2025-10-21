@@ -3,22 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dynamic Sports — Home</title>
+  <title>Dynamic Sports — Login</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="assets/Untitled design(1).svg" />
-  <!-- Netlify Identity Widget -->
-  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
-<body>
+
+<body class="login-page">
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="index.html"><img src="assets/Untitled design(1).svg" alt="Dynamic Sports logo"> Dynamic Sports</a>
+      <a class="brand" href="index.html"><img src="logo.svg" alt=""> Dynamic Sports</a>
       <nav class="nav">
-        <a class="active" href="index.html" aria-current="page">Home</a>
+        <a href="index.html">Home</a>
         <a href="news.html">News</a>
         <a href="competitions.html">Competitions</a>
         <a href="members.html">Members</a>
-        <a href="login.html">Login</a>
+        <a class="active" href="login.html">Login</a>
       </nav>
     </div>
   </header>
@@ -26,20 +25,16 @@
   <main class="wrap">
     <section class="card">
       <h1>Member Login</h1>
-      <p class="muted small">Use the button below to sign up or sign in. After login, you’ll be redirected to the Members area.</p>
+      <p class="muted small">
+        Use the button below to sign up or sign in. After login, you’ll be redirected to the Members area.
+      </p>
 
-      <div class="stack" role="group" aria-label="Authentication actions">
-        <button id="btnOpenWidget" class="btn" type="button">Open Login</button>
-        <button id="btnToMembers" class="tab" type="button">Go to Members Area</button>
+      <div class="stack">
+        <button id="btnOpenWidget" class="btn">Open Login</button>
+        <button id="btnToMembers" class="tab">Go to Members Area</button>
       </div>
 
-      <div id="loginStatus" class="muted small" style="margin-top:.75rem;" aria-live="polite"></div>
-
-      <noscript>
-        <p class="muted small" style="margin-top:.75rem;">
-          JavaScript is required for login. Please enable JavaScript and reload this page.
-        </p>
-      </noscript>
+      <div id="loginStatus" class="muted small" style="margin-top:.75rem;"></div>
     </section>
   </main>
 
@@ -49,7 +44,6 @@
     </div>
   </footer>
 
-  <!-- Shared auth logic -->
   <script src="auth.js" defer></script>
 </body>
 </html>
