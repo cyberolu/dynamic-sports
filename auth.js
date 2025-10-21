@@ -35,113 +35,105 @@
           }
         });
       }
+
       if (btnMembers) {
         btnMembers.addEventListener('click', () => {
           window.location.href = 'members.html';
         });
       }
 
-    // Identity lifecycle
-if (widget) {
-  widget.on('init', user => {
-    if (user) {
-      // Already logged in
-      setStatus(`Logged in as ${displayName(user)}.`);
-    } else {
-      setStatus('Not logged in.');
-    }
-  });
+      // Identity lifecycle
+      if (widget) {
+        widget.on('init', user => {
+          if (user) {
+            setStatus(`Logged in as ${displayName(user)}.`);
+          } else {
+            setStatus('Not logged in.');
+          }
+        });
 
-  widget.on('login', user => {
-    setStatus(`Welcome, ${displayName(user)}. Redirecting…`);
-    // Delay slightly to let Netlify Identity set the token before redirect
-    setTimeout(() => {
-      window.location.href = 'members.html';
-    }, 700);
-  });
+        widget.on('login', user => {
+          setStatus(`Welcome, ${displayName(user)}. Redirecting…`);
+          setTimeout(() => {
+            window.location.href = 'members.html';
+          }, 700);
+        });
 
-  widget.on('logout', () => {
-    setStatus('Logged out.');
-  });
+        widget.on('logout', () => {
+          setStatus('Logged out.');
+        });
 
-  widget.on('error', err => {
-    console.error(err);
-    setStatus('An authentication error occurred. Please try again.');
-  });
+        widget.on('error', err => {
+          console.error(err);
+          setStatus('An authentication error occurred. Please try again.');
+        });
 
-  // ✅ Important: this restores login state between page loads
-  widget.init({ clearHash: true });
-} else {
-  setStatus('Authentication service not available. Please refresh or try later.');
-  if (btnOpen) btnOpen.disabled = true;
-}
-
+        // ✅ Restore login state between sessions
+        widget.init({ clearHash: true });
+      } else {
+        setStatus('Authentication service not available. Please refresh or try later.');
+        if (btnOpen) btnOpen.disabled = true;
+      }
+    } // <-- closes login-page block
 
     // ============ MEMBERS PAGE ============
     if (document.body.classList.contains('members-page')) {
-      const nameEl   = document.getElementById('profName');
-      const emailEl  = document.getElementById('profEmail');
-      const rolesEl  = document.getElementById('profRoles');
+      const nameEl = document.getElementById('profName');
+      const emailEl = document.getElementById('profEmail');
+      const rolesEl = document.getElementById('profRoles');
       const guardMsg = document.getElementById('guardMsg');
-      const btnLogout= document.getElementById('btnLogout');
+      const btnLogout = document.getElementById('btnLogout');
 
-      function setGuard(msg){ if (guardMsg) guardMsg.textContent = msg; }
+      function setGuard(msg, showLoginBtn = false) {
+        if (guardMsg) {
+          guardMsg.innerHTML = msg;
+          if (showLoginBtn) {
+            guardMsg.innerHTML +=
+              `<br><button id="loginNow" class="btn" style="margin-top:.5rem;">Log in</button>`;
+            const btn = document.getElementById('loginNow');
+            if (btn) btn.addEventListener('click', () => widget.open('login'));
+          }
+        }
+      }
 
-      function updateProfile(user){
+      function updateProfile(user) {
         if (!user) return;
-        const meta  = user.user_metadata || {};
+        const meta = user.user_metadata || {};
         const roles = (user.app_metadata && user.app_metadata.roles) || [];
-        if (nameEl)  nameEl.textContent  = meta.full_name || meta.name || '—';
+        if (nameEl) nameEl.textContent = meta.full_name || meta.name || '—';
         if (emailEl) emailEl.textContent = user.email || '—';
         if (rolesEl) rolesEl.textContent = roles.join(', ') || '—';
       }
 
-      function hasMemberRole(user){
-        const roles = (user && user.app_metadata && user.app_metadata.roles) || [];
-        return roles.includes('member');
-      }
-
-      function guard(){
+      function guard() {
         const user = widget && widget.currentUser ? widget.currentUser() : null;
-
         if (!user) {
-          // Instead of redirecting, open login popup
-          setGuard('Please sign in to continue.');
-          widget.open('login');
+          setGuard('You are not logged in. Please sign in to continue.', true);
           return;
         }
-
-        if (!hasMemberRole(user)) {
-          setGuard('Your account does not have the required role (member).');
-          widget.logout();
-          return;
-        }
-
         updateProfile(user);
         setGuard('');
       }
 
       if (widget) {
-        widget.on('init',  () => guard());
-        widget.on('login', user => {
-          updateProfile(user);
-          setGuard('');
-        });
+        widget.on('init', () => guard());
+        widget.on('login', () => guard());
         widget.on('logout', () => {
-          setGuard('You have been logged out.');
+          setGuard('You have been logged out.', true);
         });
         widget.on('error', err => {
           console.error(err);
           setGuard('Authentication error. Please reload this page.');
         });
-        widget.init();
+        widget.init({ clearHash: true });
       } else {
-        setGuard('Authentication service not available. Please refresh.');
+        setGuard('Authentication service unavailable. Please refresh and try again.', true);
       }
 
       if (btnLogout) {
         btnLogout.addEventListener('click', () => {
           if (widget && typeof widget.logout === 'function') widget.logout();
+          else window.location.href = 'login.html';
         });
       }
     }
