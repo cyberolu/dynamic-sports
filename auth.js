@@ -41,28 +41,41 @@
         });
       }
 
-      // Identity lifecycle
-      if (widget) {
-        widget.on('init', user => {
-          setStatus(user ? `Logged in as ${displayName(user)}` : 'Not logged in.');
-        });
-        widget.on('login', user => {
-          setStatus(`Welcome, ${displayName(user)}. Redirecting…`);
-          setTimeout(() => { window.location.href = 'members.html'; }, 500);
-        });
-        widget.on('logout', () => {
-          setStatus('Logged out.');
-        });
-        widget.on('error', (err) => {
-          console.error(err);
-          setStatus('An authentication error occurred. Please try again.');
-        });
-        widget.init();
-      } else {
-        setStatus('Authentication service not available. Please refresh or try later.');
-        if (btnOpen) btnOpen.disabled = true;
-      }
+    // Identity lifecycle
+if (widget) {
+  widget.on('init', user => {
+    if (user) {
+      // Already logged in
+      setStatus(`Logged in as ${displayName(user)}.`);
+    } else {
+      setStatus('Not logged in.');
     }
+  });
+
+  widget.on('login', user => {
+    setStatus(`Welcome, ${displayName(user)}. Redirecting…`);
+    // Delay slightly to let Netlify Identity set the token before redirect
+    setTimeout(() => {
+      window.location.href = 'members.html';
+    }, 700);
+  });
+
+  widget.on('logout', () => {
+    setStatus('Logged out.');
+  });
+
+  widget.on('error', err => {
+    console.error(err);
+    setStatus('An authentication error occurred. Please try again.');
+  });
+
+  // ✅ Important: this restores login state between page loads
+  widget.init({ clearHash: true });
+} else {
+  setStatus('Authentication service not available. Please refresh or try later.');
+  if (btnOpen) btnOpen.disabled = true;
+}
+
 
     // ============ MEMBERS PAGE ============
     if (document.body.classList.contains('members-page')) {
