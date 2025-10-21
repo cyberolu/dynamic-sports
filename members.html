@@ -3,21 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dynamic Sports — Home</title>
+  <title>Dynamic Sports — Members</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="assets/Untitled design(1).svg" />
   <!-- Netlify Identity Widget -->
-  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
-<body>
+
+<body class="members-page">
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="index.html"><img src="assets/Untitled design(1).svg" alt="Dynamic Sports logo"> Dynamic Sports</a>
+      <a class="brand" href="index.html">
+        <img src="assets/Untitled design(1).svg" alt="Dynamic Sports logo"> Dynamic Sports
+      </a>
       <nav class="nav">
-        <a class="active" href="index.html" aria-current="page">Home</a>
+        <a href="index.html">Home</a>
         <a href="news.html">News</a>
         <a href="competitions.html">Competitions</a>
-        <a href="members.html">Members</a>
+        <a class="active" href="members.html" aria-current="page">Members</a>
         <a href="login.html">Login</a>
       </nav>
     </div>
@@ -26,7 +29,9 @@
   <main class="wrap">
     <section class="card">
       <h1>Members Area</h1>
-      <p class="muted small">Only logged-in users with the <code>member</code> role can access this page.</p>
+      <p class="muted small">
+        Only logged-in users with the <code>member</code> or <code>admin</code> role can access this page.
+      </p>
 
       <div class="card" style="margin-top:1rem;">
         <h2>Profile</h2>
@@ -51,7 +56,7 @@
     </div>
   </footer>
 
-  <!-- Shared auth logic -->
+  <!-- Shared login & guard logic -->
   <script src="auth.js" defer></script>
 </body>
 </html>
