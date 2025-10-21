@@ -90,41 +90,45 @@
 
       function guard(){
         const user = widget && widget.currentUser ? widget.currentUser() : null;
+
         if (!user) {
-          setGuard('You are not logged in. Redirecting…');
-          setTimeout(() => window.location.href = 'login.html', 800);
+          // Instead of redirecting, open login popup
+          setGuard('Please sign in to continue.');
+          widget.open('login');
           return;
         }
+
         if (!hasMemberRole(user)) {
-          setGuard('Your account does not have the required role (member). Redirecting…');
-          setTimeout(() => window.location.href = 'login.html', 1200);
+          setGuard('Your account does not have the required role (member).');
+          widget.logout();
           return;
         }
+
         updateProfile(user);
-        setGuard(''); // clear any previous guard message
+        setGuard('');
       }
 
       if (widget) {
         widget.on('init',  () => guard());
-        widget.on('login', () => guard());
-        widget.on('logout', () => {
-          // After logging out on members page, go to login
-          window.location.href = 'login.html';
+        widget.on('login', user => {
+          updateProfile(user);
+          setGuard('');
         });
-        widget.on('error', (err) => {
+        widget.on('logout', () => {
+          setGuard('You have been logged out.');
+        });
+        widget.on('error', err => {
           console.error(err);
           setGuard('Authentication error. Please reload this page.');
         });
         widget.init();
       } else {
-        // If identity script didn’t load, fail soft to login
-        window.location.href = 'login.html';
+        setGuard('Authentication service not available. Please refresh.');
       }
 
       if (btnLogout) {
         btnLogout.addEventListener('click', () => {
           if (widget && typeof widget.logout === 'function') widget.logout();
-          else window.location.href = 'login.html';
         });
       }
     }
