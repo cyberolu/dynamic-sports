@@ -28,23 +28,40 @@
 
   <main class="wrap">
     <section class="card">
-      <h1>Members Area</h1>
+      <h1>Welcome, <span id="profName">—</span>!</h1>
       <p class="muted small">
-        Only logged-in users with the <code>member</code> or <code>admin</code> role can access this page.
+        Your personal member dashboard. Stay updated with events, notices, and your profile information.
       </p>
 
-      <div class="card" style="margin-top:1rem;">
-        <h2>Profile</h2>
-        <div class="stack">
-          <div><strong>Name:</strong> <span id="profName">—</span></div>
-          <div><strong>Email:</strong> <span id="profEmail">—</span></div>
-          <div><strong>Roles:</strong> <span id="profRoles">—</span></div>
-        </div>
+      <!-- Profile Overview -->
+      <div class="stack" style="margin-top:1rem;">
+        <h2>Profile Overview</h2>
+        <div><strong>Email:</strong> <span id="profEmail">—</span></div>
+        <div><strong>Role:</strong> <span id="profRoles">—</span></div>
+        <div><strong>Member Since:</strong> <span id="memberSince">—</span></div>
+        <div><strong>Last Login:</strong> <span id="lastLogin">—</span></div>
+      </div>
 
-        <div class="stack" style="flex-direction:row;gap:.5rem;margin-top:1rem;">
-          <button id="btnLogout" class="tab" type="button">Log out</button>
-        </div>
+      <!-- My Events Section -->
+      <div class="stack" style="margin-top:1.5rem;">
+        <h2>My Events</h2>
+        <p class="muted small">This section will display your registered competitions.</p>
+        <ul id="myEvents" class="muted small">
+          <li>No events added yet.</li>
+        </ul>
+      </div>
 
+      <!-- Notifications Section -->
+      <div class="stack" style="margin-top:1.5rem;">
+        <h2>Notifications</h2>
+        <ul id="memberNotices" class="muted small">
+          <li>Welcome to the team! Check back here for updates and announcements.</li>
+        </ul>
+      </div>
+
+      <!-- Logout + Guard Message -->
+      <div style="margin-top:1.5rem;">
+        <button id="btnLogout" class="tab" type="button">Log out</button>
         <div id="guardMsg" class="muted small" style="margin-top:.75rem;" aria-live="polite"></div>
       </div>
     </section>
@@ -56,7 +73,7 @@
     </div>
   </footer>
 
-  <!-- Shared login & guard logic -->
+  <!-- Shared authentication logic -->
   <script src="auth.js" defer></script>
 </body>
 </html>
