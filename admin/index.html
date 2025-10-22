@@ -1,35 +1,43 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Dynamic Sports — Admin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Netlify Identity widget (needed for CMS login) -->
-    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  </head>
-  <body>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const widget = window.netlifyIdentity;
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Dynamic Sports — Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    function protectAdmin() {
-      const user = widget && widget.currentUser ? widget.currentUser() : null;
-      if (!user || !user.app_metadata || !user.app_metadata.roles.includes("admin")) {
-        alert("Access denied: Admins only.");
-        window.location.href = "/login.html"; // redirect to login page
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
+</head>
+
+<body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const widget = window.netlifyIdentity;
+
+      // Protect Admin Area
+      function protectAdmin(user) {
+        // If no user or missing roles, redirect
+        if (!user || !user.app_metadata || !user.app_metadata.roles.includes("admin")) {
+          alert("Access denied: Admins only.");
+          window.location.href = "/login.html";
+        }
       }
-    }
 
-    if (widget) {
-      widget.on("init", protectAdmin);
-      widget.on("login", protectAdmin);
-      widget.init();
-    } else {
-      window.location.href = "/login.html";
-    }
-  });
-</script>
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-  </body>
+      // Ensure widget is loaded before checking
+      if (widget) {
+        widget.on("init", (user) => {
+          if (user) protectAdmin(user);
+          else widget.on("login", protectAdmin);
+        });
+
+        widget.init({ clearHash: true });
+      } else {
+        window.location.href = "/login.html";
+      }
+    });
+  </script>
+
+  <!-- Netlify CMS -->
+  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+</body>
 </html>
