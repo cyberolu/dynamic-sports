@@ -8,6 +8,28 @@
     <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const widget = window.netlifyIdentity;
+
+    function protectAdmin() {
+      const user = widget && widget.currentUser ? widget.currentUser() : null;
+      if (!user || !user.app_metadata || !user.app_metadata.roles.includes("admin")) {
+        alert("Access denied: Admins only.");
+        window.location.href = "/login.html"; // redirect to login page
+      }
+    }
+
+    if (widget) {
+      widget.on("init", protectAdmin);
+      widget.on("login", protectAdmin);
+      widget.init();
+    } else {
+      window.location.href = "/login.html";
+    }
+  });
+</script>
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   </body>
 </html>

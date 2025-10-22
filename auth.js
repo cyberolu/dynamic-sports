@@ -98,6 +98,14 @@
           reader.readAsDataURL(file);
         });
       }
+          const adminLink = document.querySelector('a[href="admin/index.html"]');
+          if (adminLink && widget) {
+          widget.on('init', user => {
+          if (!user || !user.app_metadata.roles.includes('admin')) {
+          adminLink.style.display = 'none';
+       }
+     });
+}
 
       // 🧠 Security helper
       function setGuard(msg, showLoginBtn = false) {
