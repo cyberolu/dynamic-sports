@@ -124,27 +124,30 @@ a:hover { text-decoration: underline; }
   background: rgba(11,14,18,0.9);
   backdrop-filter: blur(8px);
 }
-/* --- Profile Picture Styling --------------------------------- */
+/* ==============================
+   Profile Picture Section
+============================== */
+
 .profile-pic-container {
-  margin: 1rem auto;
   text-align: center;
-  position: relative;
+  margin: 2rem auto;
 }
 
 .profile-pic-wrapper {
-  display: inline-block;
   position: relative;
-  cursor: pointer;
+  display: inline-block;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   overflow: hidden;
-  width: 120px;
-  height: 120px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
+  border: 3px solid #888; /* visible grey border */
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .profile-pic-wrapper:hover {
   transform: scale(1.05);
+  border-color: #2dd4bf; /* bright teal highlight on hover */
+  box-shadow: 0 0 10px rgba(45, 212, 191, 0.6);
 }
 
 .profile-pic {
@@ -152,31 +155,28 @@ a:hover { text-decoration: underline; }
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid #333;
+  display: block;
 }
 
-/* Hidden file input */
-.hidden-input {
-  display: none;
-}
-
-/* Hover overlay */
-.profile-pic-wrapper .overlay {
+.overlay {
   position: absolute;
   inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  font-size: 0.9rem;
   opacity: 0;
   transition: opacity 0.3s ease;
-  border-radius: 50%;
 }
 
 .profile-pic-wrapper:hover .overlay {
   opacity: 1;
+}
+
+.hidden-input {
+  display: none;
 }
 
 
