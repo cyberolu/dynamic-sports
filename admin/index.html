@@ -4,8 +4,7 @@
   <meta charset="utf-8" />
   <title>Dynamic Sports — Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- Netlify Identity Widget -->
+  <!-- Netlify Identity widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
 </head>
 
@@ -14,20 +13,22 @@
     document.addEventListener("DOMContentLoaded", () => {
       const widget = window.netlifyIdentity;
 
-      // Protect Admin Area
       function protectAdmin(user) {
-        // If no user or missing roles, redirect
         if (!user || !user.app_metadata || !user.app_metadata.roles.includes("admin")) {
           alert("Access denied: Admins only.");
           window.location.href = "/login.html";
         }
       }
 
-      // Ensure widget is loaded before checking
       if (widget) {
         widget.on("init", (user) => {
-          if (user) protectAdmin(user);
-          else widget.on("login", protectAdmin);
+          if (user) {
+            // Wait briefly for role metadata to sync (prevents false redirect)
+            setTimeout(() => protectAdmin(user), 500);
+          } else {
+            widget.on("login", (user) => protectAdmin(user));
+            widget.open("login");
+          }
         });
 
         widget.init({ clearHash: true });
