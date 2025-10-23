@@ -19,6 +19,12 @@
       "id": "test",
       "body": "trying again",
       "title": "first news"
+    },
+    {
+      "date": "2025-10-23",
+      "title": "new website launch",
+      "image": "/assets/uploads/any-questions.jpg",
+      "body": "important info to be pupished in a bit."
     }
   ]
 }
