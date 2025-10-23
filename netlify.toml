@@ -6,16 +6,19 @@
   [headers.values]
   Cache-Control = "public, max-age=0, must-revalidate"
 
-# --- Protect /admin area ---
+# --- Secure Admin Area ---
+# Redirect non-admin users to login
 [[redirects]]
   from = "/admin/*"
   to = "/login.html"
   status = 302
-  force = true
+  force = false
+  conditions = { Role = ["!admin"] }
 
+# Allow admin users to access all admin pages
 [[redirects]]
   from = "/admin/*"
-  to = "/admin/index.html"
+  to = "/admin/:splat"
   status = 200
-  force = true
+  force = false
   conditions = { Role = ["admin"] }
