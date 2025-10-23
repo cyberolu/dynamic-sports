@@ -6,8 +6,11 @@
   [headers.values]
   Cache-Control = "public, max-age=0, must-revalidate"
 
-# --- Secure Admin Area ---
-# Redirect non-admin users to login
+# ========================
+# 🔐 Admin Area Protection
+# ========================
+
+# Non-admin users → redirect to login
 [[redirects]]
   from = "/admin/*"
   to = "/login.html"
@@ -15,10 +18,17 @@
   force = false
   conditions = { Role = ["!admin"] }
 
-# Allow admin users to access all admin pages
+# Admin users → allow full access to /admin/
 [[redirects]]
   from = "/admin/*"
   to = "/admin/:splat"
   status = 200
   force = false
   conditions = { Role = ["admin"] }
+
+# Fallback (ensures CMS routing works properly)
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+  force = false
