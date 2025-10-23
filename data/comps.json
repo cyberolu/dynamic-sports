@@ -6,7 +6,12 @@
       "date": "2025-10-18",
       "venue": "City Stadium",
       "desc": "Sprint and relay focus.",
-      "events": ["100m", "200m", "400m", "4×100m Relay"]
+      "events": [
+        "100m",
+        "200m",
+        "400m",
+        "4×100m Relay"
+      ]
     },
     {
       "id": "c-2",
@@ -14,7 +19,21 @@
       "date": "2025-12-06",
       "venue": "Indoor Arena",
       "desc": "Short track indoor races.",
-      "events": ["60m", "200m", "300m"]
+      "events": [
+        "60m",
+        "200m",
+        "300m"
+      ]
+    },
+    {
+      "date": "2025-10-23",
+      "name": "dynamic sprints",
+      "venue": "lagos",
+      "events": [
+        "100m",
+        "200m",
+        "400m"
+      ]
     }
   ]
 }
