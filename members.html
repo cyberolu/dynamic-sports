@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Sports — Member Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/Untitled design(1).svg" />
+</head>
+
+<body class="members-page">
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/Untitled design(1).svg" alt="Dynamic Sports logo"> Dynamic Sports
+      </a>
+      <nav class="nav"></nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="wrap">
+    <section class="card">
+      <h1>Welcome, <span id="profName">—</span>!</h1>
+      <p class="muted small">
+        Your personal member dashboard. Stay updated with events, notices, and your profile information.
+      </p>
+
+     <!-- ✅ Profile Picture Section (with Remove Button) -->
+<div class="profile-photo-box" style="text-align:center;">
+  <div class="photo-circle" id="photoCircle" style="margin:auto;">
+    <span id="photoPlaceholder">+</span>
+    <img id="profilePhoto" src="assets/default-avatar.png" alt="Profile Photo" hidden>
+  </div>
+  <input type="file" id="photoInput" accept="image/*" hidden>
+
+  <!-- 🗑️ New Remove Photo Button -->
+  <button id="removePhotoBtn" class="btn-danger" style="margin-top:10px;">Remove Photo</button>
+</div>
+
+      
+      <!-- ✅ Profile Overview -->
+      <div class="stack" style="margin-top:1.5rem;">
+        <h2>Profile Overview</h2>
+        <div><strong>Email:</strong> <span id="profEmail">—</span></div>
+        <div><strong>Role:</strong> <span id="profRole">—</span></div>
+        <div><strong>Member Since:</strong> <span id="memberSince">—</span></div>
+        <div><strong>Last Login:</strong> <span id="lastLogin">—</span></div>
+      </div>
+
+      <!-- ✅ My Events Section -->
+      <div class="stack" style="margin-top:1.5rem;">
+        <h2>My Events</h2>
+        <p class="muted small">This section will display your registered competitions.</p>
+        <ul id="myEvents" class="muted small">
+          <li>No events added yet.</li>
+        </ul>
+      </div>
+
+      <!-- ✅ Notifications -->
+      <div class="stack" style="margin-top:1.5rem;">
+        <h2>Notifications</h2>
+        <ul id="memberNotices" class="muted small">
+          <li>Welcome to the team! Check back here for updates and announcements.</li>
+        </ul>
+      </div>
+
+      <!-- ✅ Logout -->
+      <div style="margin-top:1.5rem;">
+        <button id="btnLogout" class="tab" type="button">Log out</button>
+        <div id="guardMsg" class="muted small" style="margin-top:.75rem;" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ✅ FOOTER (GLOBAL) -->
+<footer class="site-footer">
+  <div class="wrap footer-wrap" style="flex-direction:column;align-items:center;text-align:center;">
+    <p>© <span id="year"></span> Dynamic Sports</p>
+
+    <div class="footer-social" style="margin:0.5rem 0;">
+      <a href="https://www.facebook.com/share/1DAqHW1CVQ/" target="_blank" aria-label="Facebook">
+        <img src="assets/facebook.svg" alt="Facebook" style="width:24px;margin-right:10px;">
+      </a>
+      <a href="https://www.instagram.com/dynamic_athletics_hub?igsh=MWJja25ubXF1bDIzaQ==" target="_blank" aria-label="Instagram">
+        <img src="assets/instagram.svg" alt="Instagram" style="width:24px;">
+      </a>
+    </div>
+
+    <p class="footer-credit" style="font-size:.9rem;color:var(--muted);">
+      Site created by Olusoji Fasuba
+    </p>
+  </div>
+</footer>
+
+
+  <!-- ✅ Scripts -->
+  <script type="module" src="scripts/nav.js"></script>
+  <script type="module" src="scripts/members.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Sports — Article</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/Untitled design(1).svg" />
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/Untitled design(1).svg" alt="Dynamic Sports logo"> Dynamic Sports
+    </a>
+
+    <!-- ✅ Add this so nav.js can populate menu -->
+    <nav class="nav"></nav>
+  </div>
+</header>
+
+
+<main class="wrap article-page">
+  <div id="newsArticle" class="article-content">
+    <p class="muted">Loading article…</p>
+  </div>
+
+  <a href="news.html" class="back-link back-bottom">← Back to News</a>
+</main>
+
+
+<!-- ✅ FOOTER (GLOBAL) -->
+<footer class="site-footer">
+  <div class="wrap footer-wrap" style="flex-direction:column;align-items:center;text-align:center;">
+    <p>© <span id="year"></span> Dynamic Sports</p>
+
+    <div class="footer-social" style="margin:0.5rem 0;">
+      <a href="https://www.facebook.com/share/1DAqHW1CVQ/" target="_blank" aria-label="Facebook">
+        <img src="assets/facebook.svg" alt="Facebook" style="width:24px;margin-right:10px;">
+      </a>
+      <a href="https://www.instagram.com/dynamic_athletics_hub?igsh=MWJja25ubXF1bDIzaQ==" target="_blank" aria-label="Instagram">
+        <img src="assets/instagram.svg" alt="Instagram" style="width:24px;">
+      </a>
+    </div>
+
+    <p class="footer-credit" style="font-size:.9rem;color:var(--muted);">
+      Site created by Olusoji Fasuba
+    </p>
+  </div>
+</footer>
+
+
+
+<!-- ✅ Load navigation menu -->
+<script type="module" src="scripts/nav.js"></script>
+
+<!-- ✅ Load article data -->
+<script type="module" src="scripts/news_item.js"></script>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+

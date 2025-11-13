@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Sports — Admin Dashboard</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="icon" href="../assets/Untitled design(1).svg" />
+</head>
+
+<body class="admin-page">
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">
+        <img src="../assets/Untitled design(1).svg" alt=""> Dynamic Sports
+      </a>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../news.html">News</a>
+        <a href="../competitions.html">Competitions</a>
+        <a class="active" href="#">Admin</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h1>Admin Dashboard</h1>
+      <p id="adminMsg" class="muted small"></p>
+
+      <!-- ✅ Add News Section -->
+      <h2>Add News</h2>
+      <input id="newsTitle" type="text" placeholder="News Title" class="input" />
+      <textarea id="newsDesc" placeholder="News Description" rows="5" class="input"></textarea>
+      <input id="newsImage" type="file" accept="image/*" class="input" />
+      <button id="addNewsBtn" class="btn">Add News</button>
+      <ul id="newsList"></ul>
+
+      <!-- ✅ Add Competition Section -->
+      <h2 style="margin-top:2rem;">Add Competition</h2>
+      <input id="compName" type="text" placeholder="Competition Name" class="input" />
+      <input id="compDate" type="date" class="input" />
+      <input id="compLocation" type="text" placeholder="Location" class="input" />
+      <input id="compImage" type="file" accept="image/*" class="input" />
+      <button id="addCompBtn" class="btn">Add Competition</button>
+      <button id="saveCompBtn" class="btn" style="display:none;">Save Changes</button>
+      <ul id="compList"></ul>
+    </section>
+    <!-- 👤 MANAGE MEMBERS -->
+<section class="card">
+  <h2>Manage Members</h2>
+  <p class="muted small">View all registered members. You can update their roles or remove accounts if necessary.</p>
+  
+  <ul id="memberList" class="admin-list"></ul>
+</section>
+
+
+  </main>
+
+  <!-- ✅ Scripts -->
+  <script type="module" src="../scripts/nav.js"></script>
+  <script type="module" src="../scripts/admin.js"></script>
+  <script type="module" src="../scripts/news.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Sports — Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/Untitled design(1).svg" />
+</head>
+
+<body class="home-page">
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/Untitled design(1).svg" alt="Dynamic Sports logo"> Dynamic Sports
+      </a>
+
+      <nav class="nav"></nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- WELCOME -->
+    <section class="hero-welcome container">
+      <h1>Welcome to Dynamic Sports</h1>
+      <p class="muted small">Your hub for athletic news, results, and upcoming competitions.</p>
+    </section>
+
+    <!-- COMPETITIONS -->
+    <section class="home-section container">
+      <h2>Upcoming Competitions</h2>
+      <ul id="homeComps" class="comp-list"></ul>
+    </section>
+
+    <!-- NEWS -->
+    <section class="home-section container">
+      <h2>Latest News</h2>
+      <div id="homeNews" class="news-list"></div>
+    </section>
+
+  </main>
+
+  <!-- ✅ FOOTER (GLOBAL) -->
+<footer class="site-footer">
+  <div class="wrap footer-wrap" style="flex-direction:column;align-items:center;text-align:center;">
+    <p>© <span id="year"></span> Dynamic Sports</p>
+
+    <div class="footer-social" style="margin:0.5rem 0;">
+      <a href="https://www.facebook.com/share/1DAqHW1CVQ/" target="_blank" aria-label="Facebook">
+        <img src="assets/facebook.svg" alt="Facebook" style="width:24px;margin-right:10px;">
+      </a>
+      <a href="https://www.instagram.com/dynamic_athletics_hub?igsh=MWJja25ubXF1bDIzaQ==" target="_blank" aria-label="Instagram">
+        <img src="assets/instagram.svg" alt="Instagram" style="width:24px;">
+      </a>
+    </div>
+
+    <p class="footer-credit" style="font-size:.9rem;color:var(--muted);">
+      Site created by Olusoji Fasuba
+    </p>
+  </div>
+</footer>
+
+  </footer>
+
+  <script type="module" src="scripts/nav.js"></script>
+  <script type="module" src="scripts/index.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

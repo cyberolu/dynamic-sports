@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dynamic Sports — Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/Untitled design(1).svg" />
+</head>
+
+<body class="login-page">
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/Untitled design(1).svg" alt="Dynamic Sports logo"> Dynamic Sports
+      </a>
+      <nav class="nav"></nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="wrap">
+    <section class="card">
+      <h1>Member Login</h1>
+      <p class="muted small">
+        Sign in with your email and password. Admins will be redirected to the admin dashboard.
+      </p>
+
+      <!-- LOGIN FORM -->
+      <div class="stack">
+        <input id="email" type="email" placeholder="Email" class="input" required />
+        <input id="password" type="password" placeholder="Password" class="input" required />
+        <button id="btnLogin" class="btn">Login</button>
+      </div>
+
+      <!-- FORGOT PASSWORD LINK -->
+      <p class="muted small" style="margin-top:.75rem;">
+        <a href="#" id="resetLink" style="color:#1976d2;text-decoration:underline;">Forgot your password?</a>
+      </p>
+
+      <p id="loginStatus" class="muted small" style="margin-top:.75rem;"></p>
+
+      <hr style="margin:1.5rem 0; opacity:.3;">
+
+      <!-- SIGNUP FORM -->
+      <h2>Create an Account</h2>
+      <p class="muted small">New here? Register below to join Dynamic Sports.</p>
+
+      <div class="stack">
+        <input id="newEmail" type="email" placeholder="New Email" class="input" />
+        <input id="newPassword" type="password" placeholder="New Password" class="input" />
+        <button id="btnSignup" class="btn">Create Account</button>
+      </div>
+
+      <p id="signupStatus" class="muted small" style="margin-top:.75rem;"></p>
+    </section>
+  </main>
+
+  <!-- ✅ FOOTER (GLOBAL) -->
+<footer class="site-footer">
+  <div class="wrap footer-wrap" style="flex-direction:column;align-items:center;text-align:center;">
+    <p>© <span id="year"></span> Dynamic Sports</p>
+
+    <div class="footer-social" style="margin:0.5rem 0;">
+      <a href="https://www.facebook.com/share/1DAqHW1CVQ/" target="_blank" aria-label="Facebook">
+        <img src="assets/facebook.svg" alt="Facebook" style="width:24px;margin-right:10px;">
+      </a>
+      <a href="https://www.instagram.com/dynamic_athletics_hub?igsh=MWJja25ubXF1bDIzaQ==" target="_blank" aria-label="Instagram">
+        <img src="assets/instagram.svg" alt="Instagram" style="width:24px;">
+      </a>
+    </div>
+
+    <p class="footer-credit" style="font-size:.9rem;color:var(--muted);">
+      Site created by Olusoji Fasuba
+    </p>
+  </div>
+</footer>
+
+
+  <!-- SCRIPTS -->
+  <script type="module" src="scripts/nav.js"></script>
+  <script type="module" src="scripts/login.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

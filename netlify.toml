@@ -1,0 +1,34 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+  Cache-Control = "public, max-age=0, must-revalidate"
+
+# ========================
+# 🔐 Admin Area Protection
+# ========================
+
+# Non-admin users → redirect to login
+[[redirects]]
+  from = "/admin/*"
+  to = "/login.html"
+  status = 302
+  force = false
+  conditions = { Role = ["!admin"] }
+
+# Admin users → allow full access to /admin/
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/:splat"
+  status = 200
+  force = false
+  conditions = { Role = ["admin"] }
+
+# Fallback (ensures CMS routing works properly)
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+  force = false

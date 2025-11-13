@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "netlify-dev",
+      "type": "shell",
+      "command": "netlify dev",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": [
+          { "regexp": "." }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "Server now ready on"
+        }
+      }
+    },
+    {
+      "label": "netlify-dev:kill",
+      "type": "shell",
+      "command": "taskkill /F /IM node.exe /T",
+      "problemMatcher": [],
+      "windows": { "command": "taskkill /F /IM node.exe /T" }
+    }
+  ],
+  "configurations": [
+  
+  ]
+}
