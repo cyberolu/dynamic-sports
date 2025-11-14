@@ -11,13 +11,13 @@ import {
 
 // ✅ Firebase Configuration
 const firebaseConfig = {
-  apiKey: window.env.FIREBASE_API_KEY,
-  authDomain: window.env.FIREBASE_AUTH_DOMAIN,
-  projectId: window.env.FIREBASE_PROJECT_ID,
-  storageBucket: window.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: window.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: window.env.FIREBASE_APP_ID,
-  measurementId: window.env.FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyDN3wngm8ijH9ZMHMp-hLbqX3-C-FJcKmE",
+  authDomain: "dynamicsports-c58a2.firebaseapp.com",
+  projectId: "dynamicsports-c58a2",
+  storageBucket: "dynamicsports-c58a2.firebasestorage.app",
+  messagingSenderId: "382189793627",
+  appId: "1:382189793627:web:6e33d84329f5b40908aa7e",
+  measurementId: "G-K059EW003Z"
 };
 
 // Initialise Firebase

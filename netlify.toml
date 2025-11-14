@@ -1,5 +1,6 @@
 [build]
   publish = "."
+  command = "echo 'No build step'"
 
 [[headers]]
   for = "/*"
@@ -10,7 +11,6 @@
 # 🔐 Admin Area Protection
 # ========================
 
-# Non-admin users → redirect to login
 [[redirects]]
   from = "/admin/*"
   to = "/login.html"
@@ -18,7 +18,6 @@
   force = false
   conditions = { Role = ["!admin"] }
 
-# Admin users → allow full access to /admin/
 [[redirects]]
   from = "/admin/*"
   to = "/admin/:splat"
@@ -26,9 +25,32 @@
   force = false
   conditions = { Role = ["admin"] }
 
-# Fallback (ensures CMS routing works properly)
 [[redirects]]
   from = "/admin"
   to = "/admin/index.html"
   status = 200
   force = false
+
+# ========================
+# 🌍 Inject Environment Variables
+# ========================
+
+[[plugins]]
+package = "@netlify/plugin-inject-env"
+
+  [plugins.inputs]
+  file = "env.js"
+  template = """
+window.env = {
+  FIREBASE_API_KEY: "$FIREBASE_API_KEY",
+  FIREBASE_AUTH_DOMAIN: "$FIREBASE_AUTH_DOMAIN",
+  FIREBASE_PROJECT_ID: "$FIREBASE_PROJECT_ID",
+  FIREBASE_STORAGE_BUCKET: "$FIREBASE_STORAGE_BUCKET",
+  FIREBASE_MESSAGING_SENDER_ID: "$FIREBASE_MESSAGING_SENDER_ID",
+  FIREBASE_APP_ID: "$FIREBASE_APP_ID",
+  FIREBASE_MEASUREMENT_ID: "$FIREBASE_MEASUREMENT_ID",
+  CLOUDINARY_NAME: "$CLOUDINARY_NAME",
+  CLOUDINARY_PRESET_NEWS: "$CLOUDINARY_PRESET_NEWS",
+  CLOUDINARY_PRESET_COMP: "$CLOUDINARY_PRESET_COMP"
+};
+"""

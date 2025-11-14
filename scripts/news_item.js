@@ -2,15 +2,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebas
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: window.env.FIREBASE_API_KEY,
-  authDomain: window.env.FIREBASE_AUTH_DOMAIN,
-  projectId: window.env.FIREBASE_PROJECT_ID,
-  storageBucket: window.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: window.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: window.env.FIREBASE_APP_ID,
-  measurementId: window.env.FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyDN3wngm8ijH9ZMHMp-hLbqX3-C-FJcKmE",
+  authDomain: "dynamicsports-c58a2.firebaseapp.com",
+  projectId: "dynamicsports-c58a2",
+  storageBucket: "dynamicsports-c58a2.appspot.com",
+  messagingSenderId: "382189793627",
+  appId: "1:382189793627:web:6e33d84329f5b40908aa7e"
 };
-
 
 console.log("✅ Script Loaded");
 
@@ -55,4 +53,3 @@ async function loadArticle() {
 }
 
 document.addEventListener("DOMContentLoaded", loadArticle);
-

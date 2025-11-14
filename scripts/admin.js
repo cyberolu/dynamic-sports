@@ -1,5 +1,5 @@
 // ==========================================
-// ADMIN DASHBOARD — Manage News, Competitions & Members
+// 🛠️ ADMIN DASHBOARD — Manage News, Competitions & Members
 // ==========================================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { 
@@ -9,17 +9,15 @@ import {
   getFirestore, collection, addDoc, serverTimestamp, query, orderBy, getDocs, deleteDoc, doc, getDoc, updateDoc 
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-// -----------------------------------------------------
-// 🔐 Firebase Config (NOW USING ENV VARIABLES)
-// -----------------------------------------------------
+// ✅ Firebase Configuration
 const firebaseConfig = {
-  apiKey: window.env.FIREBASE_API_KEY,
-  authDomain: window.env.FIREBASE_AUTH_DOMAIN,
-  projectId: window.env.FIREBASE_PROJECT_ID,
-  storageBucket: window.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: window.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: window.env.FIREBASE_APP_ID,
-  measurementId: window.env.FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyDN3wngm8ijH9ZMHMp-hLbqX3-C-FJcKmE",
+  authDomain: "dynamicsports-c58a2.firebaseapp.com",
+  projectId: "dynamicsports-c58a2",
+  storageBucket: "dynamicsports-c58a2.appspot.com",
+  messagingSenderId: "382189793627",
+  appId: "1:382189793627:web:6e33d84329f5b40908aa7e",
+  measurementId: "G-K059EW003Z"
 };
 
 // Initialise Firebase
@@ -27,38 +25,24 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// -----------------------------------------------------
-// 🔐 CLOUDINARY CONFIG (NOW USING ENV VARIABLES)
-// -----------------------------------------------------
-const CLOUDINARY_CLOUD_NAME = window.env.CLOUDINARY_CLOUD_NAME;
-const CLOUDINARY_PRESET_NEWS = window.env.CLOUDINARY_PRESET_NEWS;
-const CLOUDINARY_PRESET_COMP = window.env.CLOUDINARY_PRESET_COMP;
+// ✅ CLOUDINARY PRESETS
+const CLOUDINARY_PRESET_NEWS = "dynamicnews";
+const CLOUDINARY_PRESET_COMP = "dynamiccompetitions";
 
-// Secure Cloudinary endpoint
-const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
-
-// -----------------------------------------------------
-// 🔼 Cloudinary Upload Function
-// -----------------------------------------------------
+// ✅ Cloudinary Upload Function
 async function uploadToCloudinary(file, preset) {
+  const url = "https://api.cloudinary.com/v1_1/ddiwzcu9j/image/upload";
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", preset);
 
-  const res = await fetch(CLOUDINARY_UPLOAD_URL, { 
-    method: "POST", 
-    body: formData 
-  });
-
+  const res = await fetch(url, { method: "POST", body: formData });
   const data = await res.json();
-  if (!data.secure_url) throw new Error("Cloudinary upload failed");
-
+  if (!data.secure_url) throw new Error("Upload failed");
   return data.secure_url;
 }
 
-// -----------------------------------------------------
 // DOM Elements
-// -----------------------------------------------------
 const adminMsg = document.getElementById("adminMsg");
 const logoutBtn = document.getElementById("logoutBtn");
 const newsList = document.getElementById("newsList");
@@ -71,9 +55,9 @@ const compLocation = document.getElementById("compLocation");
 const compImage = document.getElementById("compImage");
 const addCompBtn = document.getElementById("addCompBtn");
 
-// -----------------------------------------------------
-// AUTH CHECK
-// -----------------------------------------------------
+// ==============================
+// 🔐 AUTH CHECK
+// ==============================
 onAuthStateChanged(auth, async (user) => {
   if (!user) return (window.location.href = "../login.html");
 
@@ -85,15 +69,14 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   adminMsg.textContent = `Welcome back, ${user.email}!`;
-
   loadNews();
   loadCompetitions();
-  loadMembers();
+  loadMembers(); // ✅ Load members once logged in
 });
 
-// -----------------------------------------------------
-// ADD NEWS
-// -----------------------------------------------------
+// ==============================
+// 📰 ADD NEWS (Image Optional)
+// ==============================
 document.getElementById("addNewsBtn").addEventListener("click", async () => {
   const title = document.getElementById("newsTitle").value.trim();
   const desc = document.getElementById("newsDesc").value.trim();
@@ -105,12 +88,11 @@ document.getElementById("addNewsBtn").addEventListener("click", async () => {
   }
 
   let imageURL = "";
-
   if (imageFile) {
     try {
       imageURL = await uploadToCloudinary(imageFile, CLOUDINARY_PRESET_NEWS);
     } catch {
-      alert("Image upload failed.");
+      alert("Image upload failed. You can still post without it.");
     }
   }
 
@@ -127,9 +109,9 @@ document.getElementById("addNewsBtn").addEventListener("click", async () => {
   loadNews();
 });
 
-// -----------------------------------------------------
-// LOAD & EDIT NEWS
-// -----------------------------------------------------
+// ==============================
+// 📰 LOAD & EDIT NEWS
+// ==============================
 async function loadNews() {
   newsList.innerHTML = "";
   const q = query(collection(db, "news"), orderBy("createdAt", "desc"));
@@ -141,7 +123,7 @@ async function loadNews() {
 
     const li = document.createElement("li");
     li.innerHTML = `
-      ${data.imageURL ? `<img src="${data.imageURL}" style="max-width:120px;border-radius:6px;">` : "<div style='width:120px;height:80px;background:#333;border-radius:6px;color:#999;display:flex;align-items:center;justify-content:center;'>No image</div>"}
+      ${data.imageURL ? `<img src="${data.imageURL}" style="max-width:120px; border-radius:6px;">` : "<div style='width:120px;height:80px;background:#333;border-radius:6px;color:#999;display:flex;align-items:center;justify-content:center;'>No image</div>"}
       <input value="${data.title}" data-field="title" data-id="${id}">
       <textarea data-field="desc" data-id="${id}">${data.desc}</textarea>
       <input type="file" data-field="image" data-id="${id}">
@@ -152,7 +134,6 @@ async function loadNews() {
     newsList.appendChild(li);
   });
 
-  // Save handler
   document.querySelectorAll(".saveNews").forEach(btn =>
     btn.onclick = async () => {
       const id = btn.dataset.id;
@@ -161,12 +142,11 @@ async function loadNews() {
       const newImage = document.querySelector(`input[data-field="image"][data-id="${id}"]`).files[0];
 
       let update = { title, desc };
-
       if (newImage) {
         try {
           update.imageURL = await uploadToCloudinary(newImage, CLOUDINARY_PRESET_NEWS);
         } catch {
-          alert("Image upload failed.");
+          alert("Failed to upload new image.");
         }
       }
 
@@ -175,7 +155,6 @@ async function loadNews() {
     }
   );
 
-  // Delete handler
   document.querySelectorAll(".delNews").forEach(btn =>
     btn.onclick = async () => {
       await deleteDoc(doc(db, "news", btn.dataset.id));
@@ -184,9 +163,9 @@ async function loadNews() {
   );
 }
 
-// -----------------------------------------------------
-// COMPETITIONS
-// -----------------------------------------------------
+// ==============================
+// 🏆 COMPETITIONS (Image Optional)
+// ==============================
 addCompBtn.onclick = async () => {
   if (!compName.value || !compDate.value || !compLocation.value) {
     alert("Please fill in competition name, date, and location.");
@@ -194,12 +173,11 @@ addCompBtn.onclick = async () => {
   }
 
   let imageURL = "";
-
   if (compImage.files[0]) {
     try {
       imageURL = await uploadToCloudinary(compImage.files[0], CLOUDINARY_PRESET_COMP);
     } catch {
-      alert("Competition image upload failed.");
+      alert("Image upload failed. Competition will be posted without image.");
     }
   }
 
@@ -241,9 +219,9 @@ async function loadCompetitions() {
   );
 }
 
-// -----------------------------------------------------
-// MANAGE MEMBERS
-// -----------------------------------------------------
+// ==============================
+// 👤 MANAGE MEMBERS
+// ==============================
 async function loadMembers() {
   const memberList = document.getElementById("memberList");
   if (!memberList) return;
@@ -280,7 +258,7 @@ async function loadMembers() {
     memberList.appendChild(li);
   });
 
-  // Role update
+  // 🔄 Role Change Handler
   document.querySelectorAll(".member-role").forEach(select => {
     select.addEventListener("change", async (e) => {
       const id = e.target.dataset.id;
@@ -290,10 +268,10 @@ async function loadMembers() {
     });
   });
 
-  // Delete user
+  // ❌ Delete Handler
   document.querySelectorAll(".deleteMember").forEach(btn => {
     btn.addEventListener("click", async () => {
-      if (confirm("Delete this member?")) {
+      if (confirm("Are you sure you want to delete this member?")) {
         await deleteDoc(doc(db, "users", btn.dataset.id));
         loadMembers();
       }
@@ -301,9 +279,9 @@ async function loadMembers() {
   });
 }
 
-// -----------------------------------------------------
-// LOGOUT
-// -----------------------------------------------------
+// ==============================
+// 🚪 LOGOUT
+// ==============================
 logoutBtn.onclick = async () => {
   await signOut(auth);
   window.location.href = "../login.html";
