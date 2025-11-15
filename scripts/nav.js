@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add role-based links
   if (role === "admin") {
     menu += `
-      <a href="${basePath}admin/index.html" style="font-weight:bold;">Admin</a>
+      <a href="${basePath}admin/admin.html" style="font-weight:bold;">Admin</a>
       <a href="#" id="logoutLink" style="color:#b00;">Logout</a>
     `;
   } else if (role === "member") {
