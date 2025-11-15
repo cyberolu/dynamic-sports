@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <a href="members.html">Members</a>
     `;
     if (role === "admin") {
-      nav.innerHTML += `<a href="admin/index.html" style="font-weight:bold;">Admin</a>`;
+      nav.innerHTML += `<a href="admin.html" style="font-weight:bold;">Admin</a>`;
       nav.innerHTML += `<a href="#" id="logoutLink" style="color:#b00;">Logout</a>`;
     } else if (role === "member") {
       nav.innerHTML += `<a href="#" id="logoutLink" style="color:#b00;">Logout</a>`;
@@ -96,7 +96,7 @@ if (document.body.classList.contains('login-page')) {
           localStorage.setItem("role", role);
           setStatus(`Welcome, ${role}!`);
           setTimeout(() => {
-            if (role === "admin") window.location.href = "admin/index.html";
+            if (role === "admin") window.location.href = "admin.html";
             else window.location.href = "members.html";
           }, 800);
         } else {

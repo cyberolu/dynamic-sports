@@ -64,7 +64,7 @@ if (loginBtn) {
 
       setTimeout(() => {
         if (role === "admin") {
-          window.location.href = "admin/admin.html";
+          window.location.href = "admin.html";
         } else {
           window.location.href = "members.html";
         }

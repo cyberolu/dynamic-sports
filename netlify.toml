@@ -11,23 +11,18 @@
 # 🔐 Admin Area Protection
 # ========================
 
+# If user is not admin → redirect to login
 [[redirects]]
-  from = "/admin/*"
+  from = "/admin"
   to = "/login.html"
   status = 302
   force = false
   conditions = { Role = ["!admin"] }
 
+# If user IS admin → show admin page
 [[redirects]]
-  from = "/admin/*"
-  to = "/admin/:splat"
+  from = "/admin"
+  to = "/admin.html"
   status = 200
   force = false
   conditions = { Role = ["admin"] }
-
-[[redirects]]
-  from = "/admin"
-  to = "/admin/admin.html"
-  status = 200
-  force = false
-
