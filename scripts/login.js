@@ -1,5 +1,5 @@
 // ==========================================
-// 🔐 LOGIN + SIGN-UP + PASSWORD RESET
+// LOGIN + SIGN-UP + PASSWORD RESET
 // ==========================================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { 
@@ -9,7 +9,7 @@ import {
   getFirestore, doc, getDoc, setDoc 
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-// ✅ Firebase Configuration
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyDN3wngm8ijH9ZMHMp-hLbqX3-C-FJcKmE",
   authDomain: "dynamicsports-c58a2.firebaseapp.com",
@@ -20,19 +20,18 @@ const firebaseConfig = {
   measurementId: "G-K059EW003Z"
 };
 
-// Initialise Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Helper to show status messages
+// Helper
 function setStatus(id, message) {
   const el = document.getElementById(id);
   if (el) el.textContent = message;
 }
 
 // ==========================================
-// 🧭 LOGIN HANDLER
+// LOGIN
 // ==========================================
 const loginBtn = document.getElementById("btnLogin");
 if (loginBtn) {
@@ -52,43 +51,37 @@ if (loginBtn) {
       const userCred = await signInWithEmailAndPassword(auth, email, password);
       const user = userCred.user;
 
-      // Get user role
       const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
       const role = docSnap.exists() ? docSnap.data().role : "member";
 
-      // Store role locally for nav display
       localStorage.setItem("role", role);
 
-      setStatus(status, `Welcome back, ${role === "admin" ? "Admin" : "Member"}!`);
+      setStatus(status, `Welcome back!`);
 
       setTimeout(() => {
-        if (role === "admin") {
-          window.location.href = "admin.html";
-        } else {
-          window.location.href = "members.html";
-        }
-      }, 1000);
-      
+        window.location.href = role === "admin" ? "admin.html" : "members.html";
+      }, 800);
+
     } catch (error) {
-      console.error("Login error:", error.message);
-      setStatus(status, "Invalid credentials or network error.");
+      setStatus(status, "Invalid email or password.");
     }
   });
 }
 
 // ==========================================
-// 🆕 SIGN-UP HANDLER
+// SIGN-UP
 // ==========================================
 const signupBtn = document.getElementById("btnSignup");
 if (signupBtn) {
   signupBtn.addEventListener("click", async () => {
+    const newName = document.getElementById("newName").value.trim();
     const newEmail = document.getElementById("newEmail").value.trim();
     const newPassword = document.getElementById("newPassword").value.trim();
     const status = "signupStatus";
 
-    if (!newEmail || !newPassword) {
-      setStatus(status, "Please fill in both fields.");
+    if (!newName || !newEmail || !newPassword) {
+      setStatus(status, "Please fill in all fields.");
       return;
     }
 
@@ -98,16 +91,19 @@ if (signupBtn) {
       const userCred = await createUserWithEmailAndPassword(auth, newEmail, newPassword);
       const user = userCred.user;
 
-      // Add to Firestore
       await setDoc(doc(db, "users", user.uid), {
+        name: newName,
         email: newEmail,
         role: "member",
+        photoURL: "",
         createdAt: new Date().toISOString()
       });
 
-      setStatus(status, "Account created successfully! You can now log in.");
+      setStatus(status, "Account created successfully!");
+      document.getElementById("newName").value = "";
       document.getElementById("newEmail").value = "";
       document.getElementById("newPassword").value = "";
+
     } catch (error) {
       console.error("Signup failed:", error.message);
       setStatus(status, "Signup failed. Try again later.");
@@ -116,37 +112,27 @@ if (signupBtn) {
 }
 
 // ==========================================
-// 🔁 PASSWORD RESET HANDLER (IMPROVED UX)
+// PASSWORD RESET
 // ==========================================
 const resetLink = document.getElementById("resetLink");
 if (resetLink) {
   resetLink.addEventListener("click", async (e) => {
     e.preventDefault();
-    const emailInput = document.getElementById("email");
-    let email = emailInput.value.trim();
 
-    // If email field is empty, prompt for it
-    if (!email) {
-      email = prompt("Enter your registered email to receive a password reset link:");
-    }
+    const emailField = document.getElementById("email");
+    let email = emailField.value.trim();
 
     if (!email) {
-      setStatus("loginStatus", "Password reset cancelled.");
-      return;
+      email = prompt("Enter your email to receive a password reset link:");
     }
 
-    setStatus("loginStatus", "Sending password reset email...");
+    if (!email) return;
 
     try {
       await sendPasswordResetEmail(auth, email);
-      setStatus("loginStatus", `Password reset link sent to ${email}. Check your inbox.`);
+      setStatus("loginStatus", `Password reset email sent to ${email}.`);
     } catch (error) {
-      console.error("Reset failed:", error.message);
-      if (error.code === "auth/user-not-found") {
-        setStatus("loginStatus", "No account found with that email.");
-      } else {
-        setStatus("loginStatus", "Unable to send reset email. Please try again later.");
-      }
+      setStatus("loginStatus", "Unable to send password reset email.");
     }
   });
 }

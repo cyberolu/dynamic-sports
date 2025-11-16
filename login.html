@@ -43,17 +43,32 @@
 
       <hr style="margin:1.5rem 0; opacity:.3;">
 
-      <!-- SIGNUP FORM -->
-      <h2>Create an Account</h2>
-      <p class="muted small">New here? Register below to join Dynamic Sports.</p>
+   <!-- SIGNUP FORM -->
+<h2>Create an Account</h2>
+<p class="muted small">New here? Register below to join Dynamic Sports.</p>
 
-      <div class="stack">
-        <input id="newEmail" type="email" placeholder="New Email" class="input" />
-        <input id="newPassword" type="password" placeholder="New Password" class="input" />
-        <button id="btnSignup" class="btn">Create Account</button>
-      </div>
+<div class="stack">
+  <input id="newName" type="text" placeholder="Full Name" class="input" />
+  <input id="newEmail" type="email" placeholder="New Email" class="input" />
+  <input id="newPassword" type="password" placeholder="New Password" class="input" />
+  <button id="btnSignup" class="btn">Create Account</button>
+</div>
 
-      <p id="signupStatus" class="muted small" style="margin-top:.75rem;"></p>
+<!-- FLAG ABOVE WARNING -->
+<div style="text-align:center; margin-top: 1rem;">
+  <img src="assets/nigerianflag.svg"
+       alt="Nigerian Flag"
+       style="height:40px; width:auto; border-radius:3px;" />
+</div>
+
+<!-- WARNING BOX -->
+<div class="realname-warning" 
+     style="margin-top:1rem; border:1px solid #0f0; padding:1rem; border-radius:6px; font-size:.9rem;">
+  ⚠ Please use your real full name when registering. Real names are required for Dynamic Athletics competition registration, prizes, and identity verification. Accounts using fake names or nicknames will be removed during our monthly checks.
+</div>
+
+<p id="signupStatus" class="muted small" style="margin-top:.75rem;"></p>
+
     </section>
   </main>
 
@@ -79,11 +94,11 @@
 
 
   <!-- SCRIPTS -->
-  <script type="module" src="../scripts/env.js"></script>
-  <script type="module" src="scripts/nav.js"></script>
-  <script type="module" src="scripts/login.js"></script>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+<script type="module" src="../scripts/env.js"></script>
+<script type="module" src="scripts/nav.js"></script>
+<script type="module" src="scripts/login.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
