@@ -15,10 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Default base menu
   let menu = `
-    <a href="${basePath}index.html">Home</a>
-    <a href="${basePath}news.html">News</a>
-    <a href="${basePath}competitions.html">Competitions</a>
-    <a href="${basePath}members.html">Members</a>
+  <a href="${basePath}index.html">Home</a>
+  <a href="${basePath}about.html">About</a>
+  <a href="${basePath}news.html">News</a>
+  <a href="${basePath}competitions.html">Competitions</a>
+  <a href="${basePath}members.html">Members</a>
+  <a href="${basePath}contact.html">Contact</a>
   `;
 
   // Add role-based links

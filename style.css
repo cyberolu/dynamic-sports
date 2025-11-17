@@ -71,6 +71,39 @@ main { flex: 1; padding: 2rem 0; }
 .nav a:hover {
   color: #fff;
 }
+.about-founder {
+  margin: 3rem auto;
+  max-width: 900px;
+  padding: 1rem;
+}
+
+.about-founder h2 {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+.founder-content {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.founder-photo {
+  width: 220px;
+  border-radius: 10px;
+  border: 2px solid #00a859; /* Nigerian green */
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.founder-text {
+  flex: 1;
+  color: #ffffff;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
 
 /* ================= FOOTER ================= */
 .site-footer {
@@ -327,6 +360,34 @@ main { flex: 1; padding: 2rem 0; }
   padding: 1rem;
   border-radius: 6px;
   box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+}
+form {
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #111;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+form textarea {
+  height: 150px;
+}
+
+form button {
+  padding: 0.7rem 1.5rem;
+  background: #006b3b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 
