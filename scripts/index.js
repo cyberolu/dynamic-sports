@@ -75,7 +75,7 @@ async function loadCompetitions() {
   snap.forEach(doc => {
     const d = doc.data();
     list.innerHTML += `
-      <li onclick="window.location.href='competition.html?id=${doc.id}'">
+      <li onclick="window.location.href='competitions.html?id=${doc.id}'">
         <strong>${d.name}</strong> — ${d.date} @ ${d.location}
       </li>
     `;
