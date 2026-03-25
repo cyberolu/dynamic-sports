@@ -103,19 +103,19 @@ api.delete("/results/:id", (req, res) => {
   });
 });
 
-// News
-api.post("/upload-news", upload.single("image"), (req, res) => {
-  const { title, content } = req.body;
-  const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
-
-  db.query(
-    "INSERT INTO news (title, content, image_url) VALUES ($1, $2, $3)",
-    [title, content, imageUrl],
-    (err) => {
-      if (err) return res.status(500).send(err);
-      res.send({ message: "✅ News uploaded successfully!", imageUrl });
-    }
-  );
+// ✅ News
+api.post("/upload-news", async (req, res) => {
+  try {
+    const { title, content, image_url } = req.body;
+    await db.query(
+      "INSERT INTO news (title, content, image_url) VALUES ($1, $2, $3)",
+      [title, content, image_url]
+    );
+    res.send({ message: "✅ News uploaded successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
 });
 
 api.get("/news", (req, res) => {
@@ -132,19 +132,19 @@ api.delete("/news/:id", (req, res) => {
   });
 });
 
-// Videos
-api.post("/upload-video", upload.single("video"), (req, res) => {
-  const { title } = req.body;
-  const videoUrl = `/uploads/${req.file.filename}`;
-
-  db.query(
-    "INSERT INTO videos (title, video_url) VALUES ($1, $2)",
-    [title, videoUrl],
-    (err) => {
-      if (err) return res.status(500).send(err);
-      res.send({ message: "✅ Video uploaded successfully!", videoUrl });
-    }
-  );
+// ✅ Videos
+api.post("/upload-video", async (req, res) => {
+  try {
+    const { title, video_url } = req.body;
+    await db.query(
+      "INSERT INTO videos (title, video_url) VALUES ($1, $2)",
+      [title, video_url]
+    );
+    res.send({ message: "✅ Video uploaded successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
 });
 
 api.get("/videos", (req, res) => {

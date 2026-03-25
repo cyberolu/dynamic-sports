@@ -43,9 +43,13 @@ async function uploadFile(file, path) {
 }
 
 // ✅ Validate Admin Login with Firebase
+console.log("⚡ Login button clicked");
+
 function validateLogin() {
     let email = document.getElementById("adminEmail").value.trim();
     let password = document.getElementById("adminPassword").value.trim();
+   
+
   
     if (!email || !password) {
       alert("⚠️ Please enter an email and password.");
@@ -195,6 +199,18 @@ async function saveNews() {
     }
 }
 window.saveNews = saveNews;
+
+// ✅ Upload File to Firebase Storage
+async function uploadFile(file, path) {
+    try {
+        const storageRef = ref(storage, path);
+        const snapshot = await uploadBytes(storageRef, file);
+        return await getDownloadURL(snapshot.ref);
+    } catch (error) {
+        console.error("❌ Error uploading file to Firebase:", error);
+        throw error;
+    }
+}
 
 // ✅ Delete News (Admin Panel)
 async function deleteNews(newsId) {
@@ -350,6 +366,46 @@ function populateYearDropdowns() {
 }
 window.populateYearDropdowns = populateYearDropdowns; // ✅ Ensure function is globally accessible
 
+async function saveNews() {
+    let newsTitle = document.getElementById("newsTitle").value.trim();
+    let newsContent = document.getElementById("newsText").value.trim();
+    let newsImageFile = document.getElementById("newsImageFile").files[0];
+
+    if (!newsTitle || !newsContent) {
+        alert("⚠️ Please enter a news title and content.");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("title", newsTitle);
+    formData.append("content", newsContent);
+
+    if (newsImageFile) {
+        const storagePath = `news/${Date.now()}_${newsImageFile.name}`;
+        const imageUrl = await uploadFile(newsImageFile, storagePath);
+        formData.append("image_url", imageUrl);
+    }
+
+    try {
+        let response = await fetch(`${API_URL}/upload-news`, {
+            method: "POST",
+            body: formData,
+        });
+
+        let data = await response.json();
+        if (response.ok) {
+            alert("✅ News uploaded successfully!");
+            fetchNews();
+        } else {
+            throw new Error(data.message || "News upload failed.");
+        }
+    } catch (error) {
+        console.error("❌ Error uploading news:", error);
+        alert("❌ Failed to upload news.");
+    }
+}
+window.saveNews = saveNews;
+
 // ✅ Delete Result
 async function deleteResult(resultId) {
     if (!confirm("Are you sure you want to delete this result?")) return;
@@ -388,7 +444,7 @@ document.addEventListener("DOMContentLoaded", function () {
     displayVideos();  // ✅ Load videos on page load
 });
 
-// ✅ Upload Video to MySQL
+// ✅ Upload Video to firebase storage
 async function addVideo() {
     let videoTitle = document.getElementById("videoTitle").value.trim();
     let videoFile = document.getElementById("videoFile").files[0];
@@ -398,9 +454,14 @@ async function addVideo() {
         return;
     }
 
+    // ✅ Upload video to Firebase Storage
+    const storagePath = `videos/${Date.now()}_${videoFile.name}`;
+    const videoUrl = await uploadFile(videoFile, storagePath);
+
+    // ✅ Now save title and videoUrl to your backend
     let formData = new FormData();
-    formData.append("video", videoFile);
     formData.append("title", videoTitle);
+    formData.append("video_url", videoUrl);
 
     try {
         let response = await fetch(`${API_URL}/upload-video`, {
@@ -411,7 +472,7 @@ async function addVideo() {
         let data = await response.json();
         if (response.ok) {
             alert("✅ Video uploaded successfully!");
-            displayVideos(); // ✅ Refresh video list
+            displayVideos();
         } else {
             throw new Error(data.message || "Upload failed.");
         }
