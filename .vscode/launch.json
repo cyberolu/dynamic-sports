@@ -5,11 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+<<<<<<< HEAD
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}"
+=======
+            "type": "msedge",
+            "request": "launch",
+            "name": "Open index.html",
+            "file": "c:\\Users\\Win1122h2\\OneDrive\\Desktop\\websites\\Dynamic\\index.html"
+>>>>>>> e6d7102239d3a0c8f36284c90b8478cb4355583f
         }
     ]
 }
