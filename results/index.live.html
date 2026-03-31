@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Competition Results – Dynamic Sports</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../assets/Untitled-design-1.svg">
+</head>
+
+<body class="page">
+
+<header class="site-header">
+  <div class="wrap">
+
+    <a class="brand" href="../index.html">
+      <img src="../assets/Untitled-design-1.svg" alt="Dynamic Sports">
+      Dynamic Sports
+    </a>
+
+    <!-- Navigation container -->
+    <nav class="nav"></nav>
+
+  </div>
+</header>
+
+<main class="wrap">
+
+  <h1 id="compNameHeading">Competition Results</h1>
+  <p class="muted" id="compDate"></p>
+
+  <!-- EVENT + ROUND + HEAT -->
+  <section class="card">
+    <h2>Select Event, Round and Heat</h2>
+
+    <div class="reg-controls" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+
+      <label>
+        Event:
+        <select id="eventSelect" class="input small"></select>
+      </label>
+
+      <label>
+        Round:
+        <select id="roundSelect" class="input small"></select>
+      </label>
+
+      <label>
+        Heat:
+        <select id="heatSelect" class="input small"></select>
+      </label>
+
+    </div>
+  </section>
+
+  <!-- TABS -->
+  <div class="tabs" style="margin-top:1.5rem;">
+    <button class="tab active" data-tab="Start">Start List</button>
+    <button class="tab" data-tab="Results">Results</button>
+  </div>
+
+  <!-- TAB CONTENT -->
+  <section id="tabStart" class="tab-content active"></section>
+  <section id="tabResults" class="tab-content"></section>
+
+</main>
+
+<!-- Load Navigation -->
+<script type="module" src="../scripts/nav.js"></script>
+
+<!-- Load Results Logic -->
+<script type="module" src="../scripts/results_public.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Competition Details – Dynamic Sports</title>
+
+  <!-- Shared CSS from root -->
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../assets/Untitled-design-1.svg">
+  <link rel="icon" type="image/svg+xml" href="../assets/Untitled-design-1.svg">
+
+  <!-- Shared navigation + page logic -->
+  <script type="module" src="../scripts/nav.js"></script>
+  <script type="module" src="../scripts/competition_item.js"></script>
+</head>
+
+<body class="page">
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../">
+        <img src="../assets/Untitled-design-1.svg" alt="Dynamic Sports logo">
+        Dynamic Sports
+      </a>
+      <nav class="nav"></nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <div class="wrap article-page">
+
+      <!-- Competition details -->
+      <div id="competitionArticle">
+        <p class="muted">Loading competition...</p>
+      </div>
+      
+      <a id="publicViewRegsBtn" class="btn secondary" style="margin-top:1rem; display:inline-block;">
+        View Registered Athletes
+      </a>
+      
+      <!-- Register button -->
+      <a id="regBtn" class="btn" style="margin-top:1.5rem; display:inline-block;">
+        Register for this competition
+      </a>
+      
+
+      <!-- MEMBER REGISTRATION -->
+      <section id="memberRegSection" class="card" style="margin-top:2rem; display:none;">
+        <h2>Member registration</h2>
+        <p class="muted small">
+          You are logged in. Confirm your details and select your events.
+        </p>
+
+        <div class="stack">
+          <div><strong>Name:</strong> <span id="memName">Loading...</span></div>
+          <div><strong>Email:</strong> <span id="memEmail">Loading...</span></div>
+        </div>
+
+        <h3 style="margin-top:1rem;">Select events</h3>
+        <div id="memberEventsList" class="comp-list"></div>
+
+        <button id="memberRegSubmit" class="btn" style="margin-top:1rem;">
+          Submit registration
+        </button>
+
+        <p id="memberRegStatus" class="muted small" style="margin-top:.5rem;"></p>
+      </section>
+
+      <!-- GUEST REGISTRATION -->
+      <section id="guestRegSection" class="card" style="margin-top:2rem;">
+        <h2>Guest athlete registration</h2>
+        <p class="muted small">
+          If you are not a Dynamic Sports member you can still register here.
+        </p>
+
+        <div class="stack">
+          <input id="guestName" class="input" type="text" placeholder="Full name">
+          <input id="guestEmail" class="input" type="email" placeholder="Email">
+          <input id="guestPhone" class="input" type="text" placeholder="Phone number">
+          <input id="guestClub" class="input" type="text" placeholder="Club or school (optional)">
+          <input id="guestDob" class="input" type="date">
+          <select id="guestGender" class="input">
+            <option value="">Select gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <h3 style="margin-top:1rem;">Select events</h3>
+        <div id="guestEventsList" class="comp-list"></div>
+
+        <button id="guestRegSubmit" class="btn" style="margin-top:1rem;">
+          Submit registration as guest
+        </button>
+
+        <p id="guestRegStatus" class="muted small" style="margin-top:.5rem;"></p>
+      </section>
+
+      <!-- Back link -->
+      <a href="../competitions/" class="back-bottom">← Back to competitions</a>
+    </div>
+  </main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap footer-wrap footer-inline">
+
+    <!-- Left -->
+    <div class="footer-left">
+      <p>© <span id="year"></span> Dynamic Sports</p>
+    </div>
+
+    <!-- Center -->
+    <div class="footer-center footer-social">
+      <a href="https://www.facebook.com/share/1DAqHW1CVQ/" target="_blank" aria-label="Facebook">
+        <img src="../assets/facebook.png" alt="Facebook">
+      </a>
+      <a href="https://www.instagram.com/dynamic_athletics_hub?igsh=MWJja25ubXF1bDIzaQ==" target="_blank" aria-label="Instagram">
+        <img src="../assets/instagram.png" alt="Instagram">
+      </a>
+    </div>
+
+    <!-- Right -->
+    <div class="footer-right footer-credit">
+      <span>Site by Olusoji Fasuba</span>
+      <a href="https://www.codebuiltsites.com" target="_blank" rel="noopener">
+        <img
+          src="../assets/logo.png"
+          alt="Codebuilt Sites"
+          class="footer-logo">
+      </a>
+    </div>
+
+  </div>
+</footer>
+
+
+  <!-- FOOTER YEAR FIX -->
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

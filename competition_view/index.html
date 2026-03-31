@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Competition Registrants – Dynamic Sports</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../assets/Untitled-design-1.svg">
+</head>
+
+<body class="page">
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../">
+        <img src="../assets/Untitled-design-1.svg" alt="Dynamic Sports logo">
+        Dynamic Sports
+      </a>
+      <nav class="nav"></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1 id="compTitle">Loading…</h1>
+    <p id="compMeta" class="muted small"></p>
+
+    <section id="publicRegistrantList">
+      Loading registrants…
+    </section>
+
+    <a href="../competitions/" class="back-bottom">← Back to Competitions</a>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-wrap" style="flex-direction:column;align-items:center;text-align:center;">
+      <p>© <span id="year"></span> Dynamic Sports</p>
+    </div>
+  </footer>
+
+  <!-- CORRECTED SCRIPT PATH FOR YOUR PROJECT -->
+  <script type="module" src="../scripts/nav.js"></script>
+  <script type="module" src="../scripts/scripts/competition_view.js"></script>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

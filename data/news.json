@@ -1,0 +1,18 @@
+{
+  "items": [
+    {
+      "id": "n-1",
+      "title": "Dynamic Sports launches!",
+      "image": "assets/uploads/placeholder.jpg",
+      "body": "Welcome to our new home for results, fixtures and athlete stories.",
+      "date": "2025-09-01"
+    },
+    {
+      "id": "n-2",
+      "title": "Junior Champs Recap",
+      "image": "assets/uploads/placeholder.jpg",
+      "body": "Thrilling finals and new PBs across the board.",
+      "date": "2025-09-15"
+    }
+  ]
+}

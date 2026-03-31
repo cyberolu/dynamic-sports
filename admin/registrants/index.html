@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Competition Registrants</title>
+
+  <link rel="stylesheet" href="../../style.css">
+</head>
+
+<body class="page">
+
+  <div class="wrap">
+
+    <h1 id="compTitle">Competition Registrants</h1>
+    <p id="compMeta" class="muted small"></p>
+
+    <!-- Export Buttons -->
+    <div class="registrant-export-buttons">
+      <button id="exportCsv" class="btn secondary">Export CSV</button>
+      <button id="exportPdf" class="btn secondary">Export PDF</button>
+    </div>
+
+    <!-- ✔ THIS MUST EXIST -->
+    <div id="registrantList"></div>
+
+    <a href="../index.html" class="btn back-btn">← Back to Admin</a>
+
+  </div>
+
+  <!-- ✔ Correct working JS path -->
+  <script type="module" src="../../scripts/registrant.js"></script>
+
+</body>
+</html>

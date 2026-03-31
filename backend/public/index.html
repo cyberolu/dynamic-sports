@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dynamic Athletics Sports - Your ultimate source for athletics news, results, and videos. Stay updated with the latest events, results, and highlights.">
+    <title>Dynamic Athletics Sports - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.jpg" alt="Dynamic Athletics Sports Logo" class="logo">
+        </div>
+        <h1>Dynamic Athletics Sports</h1>
+        <nav>
+            <ul>
+                <li><a href="news.html">News</a></li>
+                <li><a href="results.html">Results</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- ✅ Optimized Banner Section -->
+        <section class="banner">
+            <h2 class="sr-only">Dynamic Athletics Sports - Highlights</h2> 
+            <video autoplay loop muted playsinline class="banner-video" poster="images/banner-placeholder.jpg" preload="auto">
+                <source src="images/banner1.webm" type="video/webm">
+                <source src="images/banner1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+
+        <section class="hero">
+            <h2>Welcome to Dynamic Athletics Sports</h2>
+            <p>Your ultimate source for athletics news, results, and videos.</p>
+            <a href="news.html" class="cta-button">Explore Now</a>
+        </section>
+    
+        <section class="features">
+            <div class="feature-box">
+                <h3>Latest News</h3>
+                <p>Stay updated with the latest athletics events.</p>
+                <a href="news.html">Read More</a>
+            </div>
+    
+            <div class="feature-box">
+                <h3>Recent Results</h3>
+                <p>Check out the latest competition results.</p>
+                <a href="results.html">View Results</a>
+            </div>
+    
+            <div class="feature-box">
+                <h3>Watch Highlights</h3>
+                <p>Enjoy videos of top performances.</p>
+                <a href="videos.html">Watch Now</a>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/1BQvo6jV2D/" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
+                <i class="fab fa-facebook"></i> Facebook
+            </a> |
+    
+            <a href="#" class="coming-soon" onclick="alert('Twitter Coming Soon!'); return false;" aria-label="Twitter Coming Soon">
+                <i class="fab fa-twitter"></i> Twitter
+            </a> |
+    
+            <a href="https://www.instagram.com/dynamic_athletics_hub?utm_source=qr&igsh=MWJja25ubXF1bDIzaQ==" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+        </div>        
+        <p>&copy; 2025 Dynamic Athletics Sports. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

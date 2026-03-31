@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dynamic Sports — Member Dashboard</title>
+
+  <!-- FIXED PATHS -->
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../assets/Untitled-design-1.svg">
+  <link rel="icon" type="image/svg+xml" href="../assets/Untitled-design-1.svg">
+</head>
+
+<body class="members-page">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../">
+        <img src="../assets/Untitled-design-1.svg" alt="Dynamic Sports logo">
+        Dynamic Sports
+      </a>
+      <nav class="nav"></nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="wrap">
+    <section class="card">
+      <h1>Welcome, <span id="profName">—</span>!</h1>
+      <p class="muted small">Your personal member dashboard.</p>
+
+      <!-- PROFILE PHOTO -->
+      <div class="profile-photo-box" style="text-align:center;">
+        <div class="photo-circle" id="photoCircle" style="margin:auto;">
+          <span id="photoPlaceholder">+</span>
+          <img id="profilePhoto" src="../assets/default-avatar.png" alt="Profile Photo" hidden>
+        </div>
+
+        <input type="file" id="photoInput" accept="image/*" hidden>
+
+        <button id="removePhotoBtn" class="btn-danger" style="margin-top:10px;">
+          Remove Photo
+        </button>
+      </div>
+
+      <!-- PROFILE OVERVIEW -->
+      <div class="stack" style="margin-top:1.5rem;">
+        <h2>Profile Overview</h2>
+
+        <div><strong>Email:</strong> <span id="profEmail">—</span></div>
+        <div><strong>Role:</strong> <span id="profRole">—</span></div>
+        <div><strong>Member Since:</strong> <span id="memberSince">—</span></div>
+        <div><strong>Last Login:</strong> <span id="lastLogin">—</span></div>
+
+        <!-- GENDER FIELD -->
+        <div style="margin-top:1rem;">
+          <label for="gender"><strong>Gender:</strong></label>
+          <select id="gender" style="width:100%;margin-top:.25rem;padding:.5rem;border-radius:6px;">
+            <option value="">Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <button id="saveGender" class="tab" style="margin-top:.75rem;">
+            Save Gender
+          </button>
+
+          <div id="genderMsg" class="muted small" style="margin-top:.25rem;"></div>
+        </div>
+
+        <!-- BIOGRAPHY -->
+        <div style="margin-top:1.5rem;">
+          <h3>Biography</h3>
+          <textarea id="bioText"
+            style="width:100%;height:100px;margin-top:.5rem;padding:.5rem;border-radius:6px;"
+            placeholder="Write something about yourself..."></textarea>
+
+          <button id="saveBioBtn" class="tab" style="margin-top:.75rem;">
+            Save Biography
+          </button>
+
+          <div id="bioMsg" class="muted small" style="margin-top:.25rem;"></div>
+        </div>
+      </div>
+
+      <!-- MY EVENTS -->
+      <div class="stack" style="margin-top:1.5rem;">
+        <h2>My Events</h2>
+        <ul id="myEvents" class="muted small">
+          <li>No events added yet.</li>
+        </ul>
+      </div>
+
+      <!-- EVENT HISTORY -->
+      <div class="stack" style="margin-top:1.5rem;">
+        <h2>Event History</h2>
+        <ul id="eventHistory" class="muted small">
+          <li>Loading history…</li>
+        </ul>
+      </div>
+
+      <!-- LOGOUT -->
+      <div style="margin-top:1.5rem;">
+        <button id="btnLogout" class="tab" type="button">Log out</button>
+        <div id="guardMsg" class="muted small" style="margin-top:.75rem;"></div>
+      </div>
+    </section>
+  </main>
+
+ <!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap footer-wrap footer-inline">
+
+    <!-- Left -->
+    <div class="footer-left">
+      <p>© <span id="year"></span> Dynamic Sports</p>
+    </div>
+
+    <!-- Center -->
+    <div class="footer-center footer-social">
+      <a href="https://www.facebook.com/share/1DAqHW1CVQ/" target="_blank" aria-label="Facebook">
+        <img src="../assets/facebook.png" alt="Facebook">
+      </a>
+      <a href="https://www.instagram.com/dynamic_athletics_hub?igsh=MWJja25ubXF1bDIzaQ==" target="_blank" aria-label="Instagram">
+        <img src="../assets/instagram.png" alt="Instagram">
+      </a>
+    </div>
+
+    <!-- Right -->
+    <div class="footer-right footer-credit">
+      <span>Site by Olusoji Fasuba</span>
+      <a href="https://www.codebuiltsites.com" target="_blank" rel="noopener">
+        <img
+          src="../assets/logo.png"
+          alt="Codebuilt Sites"
+          class="footer-logo">
+      </a>
+    </div>
+
+  </div>
+</footer>
+
+
+  <!-- FIXED SCRIPT PATHS -->
+  <script type="module" src="../scripts/nav.js"></script>
+  <script type="module" src="../scripts/members.js"></script>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

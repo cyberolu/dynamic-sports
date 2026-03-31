@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <title>Dynamic Sports — News</title>
+
+  <!-- FIXED PATHS -->
+  <link rel="stylesheet" href="../style.css" >
+  <link rel="icon" href="../assets/Untitled-design-1.svg" >
+  <link rel="icon" type="image/svg+xml" href="../assets/Untitled-design-1.svg">
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <!-- FIXED LINK -->
+      <a class="brand" href="../">
+        <img src="../assets/Untitled-design-1.svg" alt="Dynamic Sports logo"> Dynamic Sports
+      </a>
+      <nav class="nav"></nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="news-hero">
+      <div class="wrap">
+        <h1>Latest News</h1>
+        <p class="muted">Updates from Dynamic Sports.</p>
+      </div>
+    </section>    
+
+    <!-- FIXED NEWS DISPLAY -->
+    <section class="news-list-container">
+      <div id="newsDisplay"></div>
+    </section>    
+
+  </main>  
+
+  <!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap footer-wrap footer-inline">
+
+    <!-- Left -->
+    <div class="footer-left">
+      <p>© <span id="year"></span> Dynamic Sports</p>
+    </div>
+
+    <!-- Center -->
+    <div class="footer-center footer-social">
+      <a href="https://www.facebook.com/share/1DAqHW1CVQ/" target="_blank" aria-label="Facebook">
+        <img src="../assets/facebook.png" alt="Facebook">
+      </a>
+      <a href="https://www.instagram.com/dynamic_athletics_hub?igsh=MWJja25ubXF1bDIzaQ==" target="_blank" aria-label="Instagram">
+        <img src="../assets/instagram.png" alt="Instagram">
+      </a>
+    </div>
+
+    <!-- Right -->
+    <div class="footer-right footer-credit">
+      <span>Site by Olusoji Fasuba</span>
+      <a href="https://www.codebuiltsites.com" target="_blank" rel="noopener">
+        <img
+          src="../assets/logo.png"
+          alt="Codebuilt Sites"
+          class="footer-logo">
+      </a>
+    </div>
+
+  </div>
+</footer>
+
+
+  <!-- FIXED SCRIPT PATHS -->
+  <script type="module" src="../scripts/nav.js"></script>
+  <script type="module" src="../scripts/news.js"></script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

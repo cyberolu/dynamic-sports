@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <title>Dynamic Sports News</title>
+  
+    <!-- CSS -->
+    <link rel="stylesheet" href="../style.css">
+  
+    <!-- ICON -->
+    <link rel="icon" href="../assets/Untitled-design-1.svg">
+  
+    <!-- ✅ FACEBOOK (OG TAGS) -->
+    <meta property="og:title" content="Dynamic Sports News">
+    <meta property="og:description" content="Latest athletics updates, competitions and results from Dynamic Sports">
+    <meta property="og:image" content="https://www.dynamic-athletics.com/assets/Untitled-design-1.svg">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.dynamic-athletics.com/">
+  
+    <!-- ✅ WHATSAPP / TWITTER -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dynamic Sports News">
+    <meta name="twitter:description" content="Latest updates from Dynamic Sports">
+    <meta name="twitter:image" content="https://www.dynamic-athletics.com/assets/logo.png">
+  </head>
+
+<body class="page">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../">
+        <img src="../assets/Untitled-design-1.svg" alt="Dynamic Sports logo">
+        Dynamic Sports
+      </a>
+      <nav class="nav"></nav>
+    </div>
+  </header>
+
+
+  <!-- ARTICLE CONTENT -->
+  <main id="app" class="news-article-container">
+
+    <img id="articleImage" src="" alt="News Image">
+
+    <h1 id="articleTitle"></h1>
+
+    <div class="news-meta" id="articleMeta"></div>
+
+    <div id="articleBody"></div>
+
+    <div class="article-actions">
+      <button id="shareNewsBtn" class="btn share-btn">Share this Article</button>
+      <a href="../news/index.html" class="back-bottom">Back to News</a>
+    </div>
+
+  </main>
+
+
+
+ <!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap footer-wrap footer-inline">
+
+    <!-- Left -->
+    <div class="footer-left">
+      <p>© <span id="year"></span> Dynamic Sports</p>
+    </div>
+
+    <!-- Center -->
+    <div class="footer-center footer-social">
+      <a href="https://www.facebook.com/share/1DAqHW1CVQ/" target="_blank" aria-label="Facebook">
+        <img src="../assets/facebook.png" alt="Facebook">
+      </a>
+      <a href="https://www.instagram.com/dynamic_athletics_hub?igsh=MWJja25ubXF1bDIzaQ==" target="_blank" aria-label="Instagram">
+        <img src="../assets/instagram.png" alt="Instagram">
+      </a>
+    </div>
+
+    <!-- Right -->
+    <div class="footer-right footer-credit">
+      <span>Site by Olusoji Fasuba</span>
+      <a href="https://www.codebuiltsites.com" target="_blank" rel="noopener">
+        <img
+          src="../assets/logo.png"
+          alt="Codebuilt Sites"
+          class="footer-logo">
+      </a>
+    </div>
+
+  </div>
+</footer>
+
+
+
+
+  <!-- SCRIPTS -->
+  <script type="module" src="../scripts/nav.js"></script>
+  <script type="module" src="../scripts/story.js"></script>
+
+  <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

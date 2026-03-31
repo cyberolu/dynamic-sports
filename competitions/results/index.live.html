@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Competition Results – Dynamic Sports</title>
+
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="icon" href="../../assets/Untitled-design-1.svg" />
+</head>
+
+<body class="page">
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../../index.html">
+      <img src="../../assets/Untitled-design-1.svg" alt="Dynamic Sports">
+      Dynamic Sports
+    </a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <h1 id="compNameHeading">Competition Results</h1>
+  <p class="muted small" id="compDate"></p>
+
+  <!-- EVENT SELECTION -->
+  <section class="card">
+    <h2>Select Event</h2>
+    <select id="eventSelect" class="input"></select>
+
+    <div style="margin-top:1rem;" id="heatContainer"></div>
+  </section>
+
+  <!-- START LIST + RESULTS -->
+  <section class="card" style="margin-top:1.5rem;">
+    <h2 id="eventTitle">Event Details</h2>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="start">Start List</button>
+      <button class="tab" data-tab="results">Results</button>
+    </div>
+
+    <div id="tabStart" class="tab-content active"></div>
+    <div id="tabResults" class="tab-content"></div>
+  </section>
+
+</main>
+
+<script type="module" src="../../scripts/results_public.js"></script>
+
+</body>
+</html>

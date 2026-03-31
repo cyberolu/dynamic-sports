@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Loading… | Dynamic Sports</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- DEFAULT META (will be replaced dynamically) -->
+  <meta name="description" content="Dynamic Sports news and updates.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Dynamic Sports">
+  <meta property="og:title" content="Dynamic Sports News">
+  <meta property="og:description" content="Latest news from Dynamic Sports.">
+  <meta property="og:image" content="../assets/Untitled-design-1.svg">
+  <meta property="og:url" content="">
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../assets/Untitled-design-1.svg">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../">
+        <img src="../assets/Untitled-design-1.svg" alt="Dynamic Sports logo">
+        Dynamic Sports
+      </a>
+      <nav class="nav"></nav>
+    </div>
+  </header>
+
+  <!-- STORY -->
+  <main class="wrap">
+    <article class="card news-story">
+      <h1 id="storyTitle">Loading…</h1>
+      <p id="storyDate" class="muted small"></p>
+      <img id="storyImage" class="news-full-image" hidden>
+      <div id="storyContent" class="news-content"></div>
+    </article>
+
+    <a href="./" class="back-bottom">← Back to News</a>
+  </main>
+  <button id="shareBtn" class="btn secondary">
+    Share this story
+  </button>
+  
+  <!-- FOOTER -->
+<footer class="site-footer">
+    <div class="wrap footer-wrap footer-inline">
+  
+      <!-- Left -->
+      <div class="footer-left">
+        <p>© <span id="year"></span> Dynamic Sports</p>
+      </div>
+  
+      <!-- Center -->
+      <div class="footer-center footer-social">
+        <a href="https://www.facebook.com/share/1DAqHW1CVQ/" target="_blank" aria-label="Facebook">
+          <img src="../assets/facebook.png" alt="Facebook">
+        </a>
+        <a href="https://www.instagram.com/dynamic_athletics_hub?igsh=MWJja25ubXF1bDIzaQ==" target="_blank" aria-label="Instagram">
+          <img src="../assets/instagram.png" alt="Instagram">
+        </a>
+      </div>
+  
+      <!-- Right -->
+      <div class="footer-right footer-credit">
+        <span>Site by Olusoji Fasuba</span>
+        <a href="https://www.codebuiltsites.com" target="_blank" rel="noopener">
+          <img
+            src="../assets/logo.png"
+            alt="Codebuilt Sites"
+            class="footer-logo">
+        </a>
+      </div>
+  
+    </div>
+  </footer>
+
+  <script type="module" src="../scripts/nav.js"></script>
+  <script type="module" src="../scripts/story.js"></script>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

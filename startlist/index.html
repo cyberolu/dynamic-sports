@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dynamic Sports – Start List</title>
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../assets/Untitled-design-1.svg">
+</head>
+
+<body class="page">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">
+        <img src="../assets/Untitled-design-1.svg" alt="Dynamic Sports logo">
+        Dynamic Sports
+      </a>
+
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../news/index.html">News</a>
+        <a href="../competitions/index.html">Competitions</a>
+
+        <!-- Must fill dynamically because HTML cannot read ${id} -->
+        <a id="athletesLink" href="#">Athletes</a>
+
+        <a class="active" href="#">Start List</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="wrap">
+
+    <section class="card">
+      <h1 id="compTitle">Start List</h1>
+      <p id="compMeta" class="muted small"></p>
+
+      <p class="muted">
+        Below are the official start lists grouped by Heat and Lane.
+      </p>
+
+      <div id="startListContainer" style="margin-top:1rem"></div>
+    </section>
+
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      collection,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    /* FIREBASE */
+    const firebaseConfig = {
+      apiKey: "AIzaSyDN3wngm8ijH9ZMHMp-hLbqX3-C-FJcKmE",
+      authDomain: "dynamicsports-c58a2.firebaseapp.com",
+      projectId: "dynamicsports-c58a2",
+      storageBucket: "dynamicsports-c58a2.appspot.com",
+      messagingSenderId: "382189793627",
+      appId: "1:382189793627:web:6e33d84329f5b40908aa7e"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    /* GET COMP ID */
+    const params = new URLSearchParams(window.location.search);
+    const compId = params.get("comp");
+
+    const titleEl = document.getElementById("compTitle");
+    const metaEl = document.getElementById("compMeta");
+    const container = document.getElementById("startListContainer");
+
+    if (!compId) {
+      container.innerHTML = "<p class='muted'>Invalid competition link.</p>";
+      throw new Error("Missing comp id");
+    }
+
+    /* FIX NAV LINK */
+    const athletesLink = document.getElementById("athletesLink");
+    athletesLink.href = "../registrants/index.html?id=" + compId;
+
+    loadCompetition();
+    loadStartList();
+
+    /* LOAD COMP INFO */
+    async function loadCompetition() {
+      const snap = await getDoc(doc(db, "competitions", compId));
+      if (!snap.exists()) return;
+
+      const c = snap.data();
+      titleEl.textContent = c.name + " – Start List";
+      metaEl.textContent = c.date + " • " + c.location;
+    }
+
+    /* LOAD PUBLIC START LIST */
+    async function loadStartList() {
+      const colRef = collection(db, "competitions", compId, "startlist");
+      const snap = await getDocs(colRef);
+
+      if (snap.empty) {
+        container.innerHTML = "<p class='muted'>No start lists have been published yet.</p>";
+        return;
+      }
+
+      container.innerHTML = "";
+
+      snap.forEach(docSnap => {
+        const data = docSnap.data();
+
+        const event = data.event || "Unknown Event";
+        const heat = data.heat || "Heat";
+        const wind = data.wind || "";
+        const athletes = data.athletes || [];
+
+        let html = 
+          '<div class="card" style="margin-bottom:1.5rem;">' +
+          '<h2>' + event + ' — Heat ' + heat + '</h2>' +
+          '<p class="muted small">Wind: ' + wind + '</p>' +
+          '<table class="table" style="width:100%;border-collapse:collapse;margin-top:1rem;">' +
+          '<thead>' +
+          '<tr>' +
+          '<th>Lane</th>' +
+          '<th>Athlete</th>' +
+          '<th>Club</th>' +
+          '<th>Gender</th>' +
+          '</tr>' +
+          '</thead>' +
+          '<tbody>';
+
+        athletes.sort(function(a, b) {
+          return (a.lane || 0) - (b.lane || 0);
+        });
+
+        athletes.forEach(a => {
+          html +=
+            '<tr>' +
+            '<td>' + (a.lane || '-') + '</td>' +
+            '<td>' + (a.name || '-') + '</td>' +
+            '<td>' + (a.club || '-') + '</td>' +
+            '<td>' + (a.gender || '-') + '</td>' +
+            '</tr>';
+        });
+
+        html += 
+          '</tbody>' +
+          '</table>' +
+          '</div>';
+
+        container.innerHTML += html;
+      });
+    }
+
+  </script>
+</body>
+</html>

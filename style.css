@@ -1,0 +1,897 @@
+:root {
+  --bg: #0b0e12;
+  --card: #12161d;
+  --muted: #8a94a6;
+  --text: #e8eef7;
+  --brand: #4aa9ff;
+  --brand-2: #67f0c2;
+  scroll-behavior: smooth;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main { flex: 1; padding: 2rem 0; }
+.article-image {
+  max-width: 420px;   /* or 600px if you want it a bit wider */
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 0 auto 1.5rem;  /* centre the image and add spacing */
+  display: block;
+}
+/* =========================
+   NEWS STORY IMAGE FIX
+   ========================= */
+
+   .news-full-image {
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  .news-story {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  
+  .news-content {
+    line-height: 1.7;
+  }
+  
+
+/* ================= HEADER ================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  background: rgba(11,14,18,0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #1d2430;
+  z-index: 100;
+  padding: 0.6rem 0;
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1200px, 95%);
+  margin: 0 auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.brand img {
+  width: 85px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+.news-full-image {
+  width: 100%;
+  max-width: 900px;
+  max-height: 520px;
+  height: auto;
+  display: block;
+  margin: 16px auto;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav a {
+  color: var(--brand);
+  transition: 0.3s;
+}
+
+.nav a:hover {
+  color: #fff;
+}
+.about-founder {
+  margin: 3rem auto;
+  max-width: 900px;
+  padding: 1rem;
+}
+
+.about-founder h2 {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+.founder-content {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.founder-photo {
+  width: 220px;
+  border-radius: 10px;
+  border: 2px solid #00a859; /* Nigerian green */
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.founder-text {
+  flex: 1;
+  color: #ffffff;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+
+/* ================= FOOTER ================= */
+/* Inline footer layout */
+.footer-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Left, center, right sections */
+.footer-left,
+.footer-center,
+.footer-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Center icons spacing */
+.footer-center {
+  gap: 1rem;
+}
+
+/* Footer credit */
+.footer-credit {
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Logo sizing */
+.footer-logo {
+  height: 40px;
+  width: auto;
+}
+.footer-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Left and right should not grow */
+.footer-left,
+.footer-right {
+  flex: 0 0 auto;
+}
+
+/* Center MUST stay visible */
+.footer-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.footer-center img {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+/* ================= FOOTER HOVER EFFECTS ================= */
+
+/* Social icons hover */
+.footer-social img {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.footer-social a:hover img {
+  transform: scale(1.15);
+  opacity: 0.85;
+}
+
+/* Codebuilt logo hover */
+.footer-logo {
+  height: 40px;              /* adjust size here */
+  width: auto;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.footer-credit a:hover .footer-logo {
+  transform: scale(1.12);
+  opacity: 0.85;
+}
+
+/* Mobile: stack neatly */
+@media (max-width: 700px) {
+  .footer-inline {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+
+
+/* ================= HOME PAGE ================= */
+.hero-welcome {
+  text-align: center;
+  margin-top: 3.5rem;
+  margin-bottom: 2rem;
+}
+
+.hero-welcome h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.hero-welcome .muted {
+  color: var(--muted);
+}
+
+.home-section {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.comp-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.comp-list li {
+  background: var(--card);
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  border-left: 4px solid var(--brand);
+  cursor: pointer;
+  transition: 0.25s;
+  text-align: left;
+}
+
+.comp-list li:hover {
+  background: #161c25;
+  transform: translateY(-3px);
+}
+
+/* ================= NEWS & COMPETITIONS ================= */
+#latestNews,
+.news-list,
+.news-list-container,
+#newsDisplay,
+#competitionsDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-top: 1.3rem;
+}
+
+
+.news-card, .news-thumb {
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+  background: var(--card);
+  padding: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.news-card:hover, .news-thumb:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 14px rgba(74,169,255,.35);
+}
+
+.news-card img, .news-thumb img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.news-card h3, .news-info h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.news-card p, .news-info p {
+  margin-top: .3rem;
+  font-size: .95rem;
+  color: var(--muted);
+}
+
+.article-page {
+  display: block;
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.article-content img {
+  max-width: 420px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+#competitionArticle img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto 1.5rem auto;
+}
+
+
+.back-bottom:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+/* ===== Profile Photo Section ===== */
+.profile-photo-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.photo-circle {
+  width: 240px;
+  height: 240px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.photo-circle:hover {
+  box-shadow: 0 0 12px rgba(74, 169, 255, 0.6);
+  transform: scale(1.02);
+}
+
+.photo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Small edit icon on hover */
+.edit-overlay {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: 0.3s ease;
+}
+
+.photo-circle:hover .edit-overlay {
+  opacity: 1;
+}
+.admin-list li {
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #1a1a1a;
+  color: #fff;
+}
+.admin-list li {
+  border: 1px solid #333;
+  background: #1c1c1c;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+.admin-list li select,
+.admin-list li button {
+  margin-top: 6px;
+  padding: 4px 8px;
+}
+.btn-danger {
+  background: #b00;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn-danger:hover {
+  background: #900;
+}
+.realname-warning {
+  color: #ffffff; /* White text */
+  font-size: 0.9rem;
+  border: 1px solid #006b3b;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+}
+form {
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #111;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+form textarea {
+  height: 150px;
+}
+
+form button {
+  padding: 0.7rem 1.5rem;
+  background: #006b3b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+/* ============================================================
+   ADMIN DASHBOARD – styles apply only inside body.admin-page
+   (Safe: does NOT affect the home page or other pages)
+============================================================ */
+
+body.admin-page {
+  background: #0b0e12;
+  color: #e8eef7;
+}
+
+/* Admin cards */
+body.admin-page .card {
+  background: #12161d;
+  border: 1px solid #1d2430;
+  border-radius: 10px;
+  padding: 1.3rem;
+  margin-bottom: 1.8rem;
+}
+
+/* Inputs in admin */
+body.admin-page .input {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #1d2430;
+  background: #0b0e12;
+  color: #e8eef7;
+  margin-bottom: 0.8rem;
+}
+
+body.admin-page .input:focus {
+  border-color: var(--brand);
+  outline: none;
+}
+
+/* Buttons */
+body.admin-page .btn {
+  background: var(--brand);
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+  transition: 0.25s;
+}
+
+body.admin-page .btn:hover {
+  background: #197ee0;
+}
+
+body.admin-page .btn.secondary {
+  background: #1c1c1c;
+  border: 1px solid #333;
+  color: #e8eef7;
+}
+
+body.admin-page .btn.secondary:hover {
+  background: #262626;
+}
+
+body.admin-page .btn.danger {
+  background: #b00;
+  color: #fff;
+}
+
+body.admin-page .btn.danger:hover {
+  background: #900;
+}
+
+/* Admin items */
+body.admin-page .admin-list li,
+body.admin-page #newsList li,
+body.admin-page #compList li,
+body.admin-page #pendingRegs li {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+/* Grid layout for admin */
+body.admin-page .admin-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Images */
+body.admin-page .admin-thumb {
+  width: 110px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Registration Filter Layout */
+body.admin-page .reg-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+body.admin-page .active-tab {
+  background: #4aa9ff;
+  color: #fff;
+}
+/* ==========================================================
+   REGISTRANTS PAGE — EVENT GROUPING + TABLE DISPLAY
+   ========================================================== */
+
+/* Export buttons wrapper */
+.registrant-export-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+/* Event section wrapper */
+.event-section {
+  margin-top: 2rem;
+}
+
+/* Event title */
+.reg-event-title,
+.event-section h2 {
+  margin: 0 0 0.6rem 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--text);
+}
+
+/* Table styling */
+.registrant-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  background: var(--card);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+/* Table rows */
+.registrant-table th,
+.registrant-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #333;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+/* Table header */
+.registrant-table th {
+  background: #1b1b1b;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Last row border fix */
+.registrant-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Status colour codes */
+.status-pending {
+  color: #d4b300;
+  font-weight: bold;
+}
+
+.status-approved {
+  color: #28c76f;
+  font-weight: bold;
+}
+
+.status-rejected {
+  color: #ff4d4d;
+  font-weight: bold;
+}
+
+/* Back button */
+.back-btn {
+  margin-top: 2rem;
+  display: inline-block;
+}
+
+/* Remove list styling */
+#registrantList {
+  list-style: none;
+  padding: 0;
+}
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;   /* adjust if you want */
+  height: 100vh;  /* full height column */
+  padding: 2rem;
+  background: #0f1115; /* match your theme */
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+/* move content so it's not under sidebar */
+.admin-main {
+  margin-left: 260px; /* same as sidebar width */
+  padding: 2rem;
+}
+/* ARTICLE PAGE STYLING */
+.news-article-container {
+  max-width: 850px;        /* keeps readable width */
+  margin: 3rem auto;
+  padding: 1rem 2rem;
+  line-height: 1.7;
+  font-size: 1.1rem;
+}
+
+.news-article-container h1 {
+  font-size: 2rem;
+  margin-bottom: .5rem;
+}
+
+.news-article-container img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+}
+
+.news-meta {
+  opacity: .7;
+  font-size: .95rem;
+  margin-bottom: 1.5rem;
+}
+
+/* SHARE + BACK BUTTONS CLEANED */
+.article-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.article-actions a,
+.article-actions button {
+  padding: .55rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.article-image,
+.news-article-container img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;    /* prevents cropping */
+    border-radius: 12px;
+    margin-bottom: 1.2rem;
+}
+/* ✅ Force Back to News to bottom center */
+.back-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0 1rem;
+}
+
+.back-bottom {
+  display: inline-block;
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--brand);
+  text-decoration: none;
+}
+
+
+
+/* Tablets (≤900px) */
+@media (max-width: 900px) {
+  .wrap {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .news-card img, .news-thumb img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Mobile Phones (≤600px) */
+@media (max-width: 600px) {
+  .brand {
+    font-size: 1.3rem;
+  }
+
+  .news-card, .news-thumb {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .news-card img, .news-thumb img {
+    width: 100%;
+    height: auto;
+  }
+
+  .photo-circle {
+    width: 160px;
+    height: 160px;
+  }
+
+  #photoPlaceholder {
+    font-size: 2.2rem;
+  }
+
+  .hero-welcome h1 {
+    font-size: 1.8rem;
+  }
+}
+.btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-row .btn {
+  display: inline-block;
+}
+
+/* Make <a> buttons look exactly like <button class="btn"> */
+a.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  background: #fff;
+  color: #000 !important;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.btn:hover {
+  background: #f2f2f2;
+}
+
+/* Small Phones (≤400px) */
+@media (max-width: 400px) {
+  .photo-circle {
+    width: 130px;
+    height: 130px;
+  }
+
+  #photoPlaceholder {
+    font-size: 2rem;
+  }
+
+  .brand img {
+    width: 60px;
+  }
+
+  .hero-welcome h1 {
+    font-size: 1.5rem;
+  }
+
+  .footer-social img {
+    width: 22px;
+    height: 22px;
+  }
+}
+/* ================= FOOTER MOBILE FIX ================= */
+
+/* Prevent global .wrap rules from breaking footer */
+.site-footer .wrap {
+  flex-direction: row;
+}
+
+/* Ensure footer center (social icons) is always visible */
+.footer-center {
+  min-height: 32px;
+}
+
+/* Mobile layout ONLY for footer */
+@media (max-width: 700px) {
+  .site-footer .wrap {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .footer-center {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .footer-center img {
+    width: 26px;
+    height: 26px;
+    display: block;
+  }
+}

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enter Results – Dynamic Sports</title>
+
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="icon" href="../../assets/Untitled-design-1.svg" />
+</head>
+
+<body class="page">
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <img src="../../assets/Untitled-design-1.svg" alt="Dynamic Sports">
+      Admin Panel
+    </a>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 id="pageHeading">Enter Results</h1>
+  <p class="muted">Add official results for each ROUND and HEAT in this competition.</p>
+
+  <!-- EVENT + ROUND + HEAT SELECTION -->
+  <section class="card">
+    <h2>Select Event, Round & Heat</h2>
+
+    <div class="reg-controls" style="margin-top:1rem;gap:1rem;display:flex;flex-wrap:wrap;">
+
+      <label>
+        Event:
+        <select id="eventSelect" class="input small">
+          <option value="">Select event</option>
+        </select>
+      </label>
+
+      <label>
+        Round:
+        <select id="roundSelect" class="input small">
+          <option value="">Select round</option>
+          <option value="Heat">Heat</option>
+          <option value="Semi">Semi</option>
+          <option value="Final">Final</option>
+        </select>
+      </label>
+
+      <label>
+        Heat:
+        <select id="heatSelect" class="input small">
+          <option value="">Select heat</option>
+        </select>
+      </label>
+
+      <label>
+        Wind:
+        <input id="windInput" class="input small" type="text" placeholder="+1.7 or -0.3">
+      </label>
+
+      <button id="loadStartListBtn" class="btn secondary">Load Start List</button>
+    </div>
+
+    <p id="resultMsg" class="muted small"></p>
+  </section>
+
+  <!-- RESULTS ENTRY TABLE -->
+  <section class="card" style="margin-top:1.5rem;">
+    <h2>Enter Performances</h2>
+
+    <div class="table-wrapper" style="margin-top:1rem;">
+      <table class="table" style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th>Lane</th>
+            <th>Athlete</th>
+            <th>Club</th>
+            <th>Performance</th>
+            <th>Position</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="resultsTableBody"></tbody>
+      </table>
+    </div>
+
+    <button id="saveResultsBtn" class="btn" style="margin-top:1rem;">
+      Save Round Results
+    </button>
+  </section>
+
+  <a href="../" style="display:inline-block;margin-top:2rem;">← Back to Admin</a>
+
+</main>
+
+<script type="module" src="../../scripts/results_admin.js"></script>
+
+</body>
+</html>

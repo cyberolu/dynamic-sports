@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dynamic Sports – Start List Builder</title>
+
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="icon" href="../../assets/Untitled-design-1.svg">
+</head>
+
+<body class="admin-page">
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <img src="../../assets/Untitled-design-1.svg" alt="Logo">
+      Dynamic Sports – Admin
+    </a>
+
+    <nav class="nav">
+      <a href="../index.html">Dashboard</a>
+      <a href="../competitions/index.html">Competitions</a>
+      <a id="registrantsLink" href="#">Registrants</a>
+      <a class="active" href="#">Start List</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" style="display:flex;gap:2rem;align-items:flex-start;">
+
+  <!-- LEFT PANEL -->
+  <section class="card" style="flex:1;min-width:320px;">
+    <h1 id="compTitle">Start List</h1>
+    <p id="compMeta" class="muted small"></p>
+
+    <label class="input-label">Event:</label>
+    <select id="eventSelect" class="input"></select>
+
+    <label class="input-label">Heat:</label>
+    <select id="heatSelect" class="input">
+      <option value="1">Heat 1</option>
+      <option value="2">Heat 2</option>
+      <option value="3">Heat 3</option>
+      <option value="4">Heat 4</option>
+    </select>
+
+    <label class="input-label">Wind:</label>
+    <input id="windInput" class="input" placeholder="+1.6 or -0.3">
+
+    <button id="loadBtn" class="btn" style="margin-top:1.2rem;width:100%;">Load Athletes</button>
+  </section>
+
+  <!-- RIGHT PANEL -->
+  <section class="card" style="flex:2;">
+    <h2>Athlete Lane Assignment</h2>
+    <p id="statusMsg" class="muted small"></p>
+
+    <!-- Male Section -->
+    <h3 style="margin-top:1rem;">Male</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width:80px;">Lane</th>
+          <th>Athlete</th>
+          <th>Club</th>
+        </tr>
+      </thead>
+      <tbody id="laneTableMale"></tbody>
+    </table>
+
+    <!-- Female Section -->
+    <h3 style="margin-top:2rem;">Female</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width:80px;">Lane</th>
+          <th>Athlete</th>
+          <th>Club</th>
+        </tr>
+      </thead>
+      <tbody id="laneTableFemale"></tbody>
+    </table>
+
+    <!-- Save Button -->
+    <button id="saveBtn" class="btn" style="margin-top:2rem;width:100%;">Save Start List</button>
+  </section>
+
+</main>
+
+<script type="module" src="../../scripts/startlists_admin.js"></script>
+
+</body>
+</html>

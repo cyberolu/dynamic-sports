@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Us – Dynamic Sports</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/Untitled-design-1.svg">
+
+  <!-- NAV SCRIPT -->
+  <script type="module" src="../scripts/nav.js"></script>
+</head>
+
+<body class="page">
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../">
+        <img src="../assets/Untitled-design-1.svg" alt="Dynamic Sports logo">
+        Dynamic Sports
+      </a>
+      <nav class="nav"></nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="wrap">
+    <h2>Contact Us</h2>
+
+    <form name="contact" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="contact">
+
+      <input type="text" name="name" placeholder="Your Name" required>
+
+      <input type="email" name="email" placeholder="Your Email" required>
+
+      <textarea name="message" placeholder="Your Message" required></textarea>
+
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap footer-wrap footer-inline">
+
+      <div class="footer-left">
+        <p>© <span id="year"></span> Dynamic Sports</p>
+      </div>
+
+      <div class="footer-center footer-social">
+        <a href="https://www.facebook.com/share/1DAqHW1CVQ/" target="_blank" aria-label="Facebook">
+          <img src="../assets/facebook.png" alt="Facebook">
+        </a>
+        <a href="https://www.instagram.com/dynamic_athletics_hub?igsh=MWJja25ubXF1bDIzaQ==" target="_blank" aria-label="Instagram">
+          <img src="../assets/instagram.png" alt="Instagram">
+        </a>
+      </div>
+
+      <div class="footer-right footer-credit">
+        <span>Site by Olusoji Fasuba</span>
+        <a href="https://www.codebuiltsites.com" target="_blank" rel="noopener">
+          <img src="../assets/logo.png" alt="Codebuilt Sites" class="footer-logo">
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

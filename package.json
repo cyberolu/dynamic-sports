@@ -1,0 +1,13 @@
+{
+  "name": "dynamic-sports",
+  "version": "1.0.0",
+  "description": "Dynamic Sports website",
+  "scripts": {
+    "start": "echo \"No build step\""
+  },
+  "author": "cyberolu",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^13.7.0"
+  }
+}

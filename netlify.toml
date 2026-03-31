@@ -1,0 +1,41 @@
+[build]
+  publish = "."
+  command = "echo 'No build step'"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Admin routes
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/"
+  to = "/admin/index.html"
+  status = 200
+
+# News index
+[[redirects]]
+  from = "/news"
+  to = "/news/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/news/"
+  to = "/news/index.html"
+  status = 200
+
+# ✅ Story route must go to Function
+[[redirects]]
+  from = "/news/story"
+  to = "/.netlify/functions/story"
+  status = 200
+
+[[redirects]]
+  from = "/news/:id"
+  to = "/.netlify/functions/news?id=:id"
+  status = 200
