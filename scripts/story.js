@@ -29,9 +29,25 @@ const db = getFirestore(app);
 // ==========================================
 // 📌 Read slug from URL
 // ==========================================
-const params = new URLSearchParams(window.location.search);
-const slug = params.get("id");
+let slug = null;
 
+// CLEAN URL SUPPORT
+const path = window.location.pathname;
+
+// remove trailing slash
+const cleanPath = path.endsWith("/") ? path.slice(0, -1) : path;
+
+// split path
+const parts = cleanPath.split("/");
+slug = parts[parts.length - 1];
+
+// fallback for old ?id=
+if (!slug || slug === "news_item" || slug === "index.html") {
+  const params = new URLSearchParams(window.location.search);
+  slug = params.get("id");
+}
+
+// root container (ONLY ONCE)
 const root = document.getElementById("app");
 
 if (!slug) {
@@ -105,7 +121,7 @@ import("../scripts/nav.js");
 const shareBtn = document.getElementById("shareBtn");
 if (shareBtn) {
   shareBtn.onclick = async () => {
-    const url = `https://www.dynamic-athletics.com/news/story?slug=${slug}`;
+    const url = `https://www.dynamic-athletics.com/news/${slug}`;
     await navigator.clipboard.writeText(url);
     alert("Story link copied!");
   };
