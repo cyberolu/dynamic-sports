@@ -1,8 +1,5 @@
-# 🔥 Articles ONLY (slug pages)
-/news/:slug  https://backend-winter-pond-2073.fly.dev/news/:slug  200
-
-# 🧠 Frontend renderer for articles
-/news/:slug  /news_item/index.html 200
-
 # 📰 News list page
 /news  /news.html 200
+
+# 🧠 Frontend renderer ONLY
+/news/*  /news_item/index.html 200

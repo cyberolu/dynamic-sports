@@ -39,14 +39,14 @@ app.get("/", (req, res) => {
 });
 
 /* ================================
-   ✅ FIXED: NEWS ROOT ROUTE
+   NEWS LIST ROUTE
 ================================ */
 app.get("/news", (req, res) => {
   res.redirect("https://www.dynamic-athletics.com/news.html");
 });
 
 /* ================================
-   🔥 NEWS ROUTE (SLUG BASED)
+   🔥 NEWS ARTICLE ROUTE (FIXED)
 ================================ */
 app.get("/news/:slug", async (req, res) => {
   const slug = req.params.slug;
@@ -62,8 +62,7 @@ app.get("/news/:slug", async (req, res) => {
       return res.status(404).send("Article not found");
     }
 
-    const doc = snapshot.docs[0];
-    const article = doc.data();
+    const article = snapshot.docs[0].data();
 
     const title = article.title || "Dynamic Athletics";
     const description = article.desc || "Latest news";
@@ -73,7 +72,6 @@ app.get("/news/:slug", async (req, res) => {
       article.imageURL ||
       "https://www.dynamic-athletics.com/assets/logo.png";
 
-    // ✅ FIXED: correct domain
     const url = `https://www.dynamic-athletics.com/news/${slug}`;
 
     res.set("Content-Type", "text/html");
@@ -93,17 +91,17 @@ app.get("/news/:slug", async (req, res) => {
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-
 </head>
 <body>
 
 <script>
-  window.location.href = "https://www.dynamic-athletics.com/news/${slug}";
+  // ✅ FIXED: redirect to frontend page (NO LOOP)
+  window.location.href = "https://www.dynamic-athletics.com/news_item/index.html?slug=${slug}";
 </script>
 
 <noscript>
   <p>Open article:</p>
-  <a href="https://www.dynamic-athletics.com/news/${slug}">
+  <a href="https://www.dynamic-athletics.com/news_item/index.html?slug=${slug}">
     Click here
   </a>
 </noscript>
@@ -117,7 +115,7 @@ app.get("/news/:slug", async (req, res) => {
 });
 
 /* ================================
-   START SERVER (CRITICAL FOR FLY)
+   START SERVER
 ================================ */
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
