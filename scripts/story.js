@@ -121,7 +121,7 @@ import("../scripts/nav.js");
 const shareBtn = document.getElementById("shareBtn");
 if (shareBtn) {
   shareBtn.onclick = async () => {
-    const url = `https://www.dynamic-athletics.com/news/${slug}`;
+    const url = `https://backend-winter-pond-2073.fly.dev/news/${slug}`;
     await navigator.clipboard.writeText(url);
     alert("Story link copied!");
   };
