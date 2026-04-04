@@ -46,7 +46,7 @@ app.get("/news", (req, res) => {
 });
 
 /* ================================
-   🔥 NEWS ARTICLE ROUTE (FIXED)
+   🔥 NEWS ARTICLE ROUTE (FINAL FIX)
 ================================ */
 app.get("/news/:slug", async (req, res) => {
   const slug = req.params.slug;
@@ -74,9 +74,20 @@ app.get("/news/:slug", async (req, res) => {
 
     const url = `https://www.dynamic-athletics.com/news/${slug}`;
 
-    res.set("Content-Type", "text/html");
+    // 🔍 DETECT SOCIAL BOTS
+    const userAgent = req.headers["user-agent"] || "";
 
-    res.send(`<!DOCTYPE html>
+    const isBot =
+      userAgent.includes("facebookexternalhit") ||
+      userAgent.includes("Facebot") ||
+      userAgent.includes("Twitterbot") ||
+      userAgent.includes("WhatsApp");
+
+    /* ================================
+       🤖 BOT → SHOW OG TAGS ONLY
+    ================================= */
+    if (isBot) {
+      return res.send(`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -93,21 +104,18 @@ app.get("/news/:slug", async (req, res) => {
   <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
-
-<script>
-  // ✅ FIXED: redirect to frontend page (NO LOOP)
-  window.location.href = "https://www.dynamic-athletics.com/news_item/index.html?slug=${slug}";
-</script>
-
-<noscript>
-  <p>Open article:</p>
-  <a href="https://www.dynamic-athletics.com/news_item/index.html?slug=${slug}">
-    Click here
-  </a>
-</noscript>
-
+  <h1>${title}</h1>
 </body>
 </html>`);
+    }
+
+    /* ================================
+       👤 USER → REDIRECT TO FRONTEND
+    ================================= */
+    return res.redirect(
+      `https://www.dynamic-athletics.com/news_item/index.html?slug=${slug}`
+    );
+
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
