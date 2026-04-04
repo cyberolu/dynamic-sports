@@ -22,3 +22,9 @@ yarn-error.log
 # ⚙️ Netlify
 # =========================
 .netlify
+
+node_modules
+.env
+backend/
+server/
+*.json

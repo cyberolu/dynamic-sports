@@ -1,170 +1,115 @@
-// ✅ Load Environment Variables
-require("dotenv").config();
+import express from "express";
+import admin from "firebase-admin";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-// ✅ Core Modules
-const fs = require("fs");
-const os = require("os");
-const path = require("path");
+/* ================================
+   PATH SETUP
+================================ */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// ✅ External Modules
-const express = require("express");
-const cors = require("cors");
-const multer = require("multer");
-const { Pool } = require("pg");
-
+/* ================================
+   APP SETUP
+================================ */
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// ✅ Dynamically Get Server IP
-const getServerIP = () => {
-  const interfaces = os.networkInterfaces();
-  for (let key in interfaces) {
-    for (let iface of interfaces[key]) {
-      if (iface.family === "IPv4" && !iface.internal) {
-        return iface.address;
-      }
-    }
-  }
-  return "localhost";
-};
-const SERVER_IP = getServerIP();
-console.log(`🌍 Server IP: ${SERVER_IP}`);
+/* ================================
+   FIREBASE SETUP
+================================ */
+const serviceAccount = JSON.parse(
+  fs.readFileSync(path.join(__dirname, "serviceAccountKey.json"), "utf8")
+);
 
-// ✅ Middleware
-app.use(express.json());
-app.use(cors());
-app.use("/uploads", express.static("uploads"));
-app.use(express.static(path.join(__dirname, "public")));
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
+}
 
+const db = admin.firestore();
+
+/* ================================
+   TEST ROUTE
+================================ */
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.send("✅ Backend running");
 });
 
-// ✅ PostgreSQL Connection
-const db = new Pool({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  ssl: { rejectUnauthorized: false }
-});
+/* ================================
+   🔥 NEWS ROUTE (SLUG BASED)
+================================ */
+app.get("/news/:slug", async (req, res) => {
+  const slug = req.params.slug;
 
-db.connect()
-  .then(() => console.log("✅ PostgreSQL Connected!"))
-  .catch((err) => {
-    console.error("❌ PostgreSQL Connection Failed:", err);
-    process.exit(1);
-  });
+  try {
+    // ✅ FIND BY SLUG (NEW)
+    const snapshot = await db
+      .collection("news")
+      .where("slug", "==", slug)
+      .limit(1)
+      .get();
 
-// ✅ Multer Configuration
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadPath = "uploads";
-    if (!fs.existsSync(uploadPath)) fs.mkdirSync(uploadPath);
-    cb(null, uploadPath);
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-const upload = multer({ storage });
-
-// ✅ API Grouping
-const api = express.Router();
-
-// Results
-api.post("/upload", upload.single("file"), (req, res) => {
-  const { year } = req.body;
-  const fileName = req.file.filename;
-  const fileUrl = `/uploads/${fileName}`;
-
-  db.query(
-    "INSERT INTO results (year, file_name, file_url) VALUES ($1, $2, $3)",
-    [year, fileName, fileUrl],
-    (err) => {
-      if (err) return res.status(500).send(err);
-      res.send({ message: "✅ File uploaded successfully!", fileUrl });
+    if (snapshot.empty) {
+      return res.status(404).send("Article not found");
     }
-  );
-});
 
-api.get("/results", (req, res) => {
-  db.query("SELECT * FROM results ORDER BY uploaded_at DESC", (err, results) => {
-    if (err) return res.status(500).send(err);
-    res.send(results.rows);
-  });
-});
+    const doc = snapshot.docs[0];
+    const article = doc.data();
 
-api.delete("/results/:id", (req, res) => {
-  db.query("DELETE FROM results WHERE id = $1", [req.params.id], (err) => {
-    if (err) return res.status(500).send(err);
-    res.send({ message: "🗑 Result deleted successfully!" });
-  });
-});
+    const title = article.title || "Dynamic Athletics";
+    const description = article.desc || "Latest news";
+    const image =
+      article.image ||
+      "https://www.dynamic-athletics.com/assets/logo.png";
 
-// ✅ News
-api.post("/upload-news", async (req, res) => {
-  try {
-    const { title, content, image_url } = req.body;
-    await db.query(
-      "INSERT INTO news (title, content, image_url) VALUES ($1, $2, $3)",
-      [title, content, image_url]
-    );
-    res.send({ message: "✅ News uploaded successfully!" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send(error);
+    const url = `https://backend-winter-pond-2073.fly.dev/news/${slug}`;
+
+    res.set("Content-Type", "text/html");
+
+    res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>${title}</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="${title}">
+  <meta property="og:description" content="${description}">
+  <meta property="og:image" content="${image}">
+  <meta property="og:url" content="${url}">
+  <meta property="og:type" content="article">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+
+</head>
+<body>
+
+<script>
+  window.location.href = "https://www.dynamic-athletics.com/news.html?slug=${slug}";
+</script>
+
+<noscript>
+  <p>Open article:</p>
+  <a href="https://www.dynamic-athletics.com/news.html?slug=${slug}">
+    Click here
+  </a>
+</noscript>
+
+</body>
+</html>`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
   }
 });
 
-api.get("/news", (req, res) => {
-  db.query("SELECT * FROM news ORDER BY created_at DESC", (err, results) => {
-    if (err) return res.status(500).send(err);
-    res.send(results.rows);
-  });
-});
-
-api.delete("/news/:id", (req, res) => {
-  db.query("DELETE FROM news WHERE id = $1", [req.params.id], (err) => {
-    if (err) return res.status(500).send(err);
-    res.send({ message: "🗑 News deleted successfully!" });
-  });
-});
-
-// ✅ Videos
-api.post("/upload-video", async (req, res) => {
-  try {
-    const { title, video_url } = req.body;
-    await db.query(
-      "INSERT INTO videos (title, video_url) VALUES ($1, $2)",
-      [title, video_url]
-    );
-    res.send({ message: "✅ Video uploaded successfully!" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send(error);
-  }
-});
-
-api.get("/videos", (req, res) => {
-  db.query("SELECT * FROM videos ORDER BY created_at DESC", (err, results) => {
-    if (err) return res.status(500).send(err);
-    res.send(results.rows);
-  });
-});
-
-api.delete("/videos/:id", (req, res) => {
-  db.query("DELETE FROM videos WHERE id = $1", [req.params.id], (err) => {
-    if (err) return res.status(500).send(err);
-    res.send({ message: "🗑 Video deleted successfully!" });
-  });
-});
-
-// ✅ Register API Routes
-app.use("/api", api);
-
-// ✅ Start Server
+/* ================================
+   START SERVER (CRITICAL FOR FLY)
+================================ */
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 App running on http://0.0.0.0:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });

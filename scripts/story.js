@@ -56,11 +56,11 @@ if (!slug) {
 }
 
 // ==========================================
-// 🔎 Fetch story from Firestore
+// 🔎 Fetch story from Firestore (FIXED)
 // ==========================================
 const q = query(
   collection(db, "news"),
-  where("__name__", "==", slug)
+  where("slug", "==", slug)
 );
 
 const snap = await getDocs(q);

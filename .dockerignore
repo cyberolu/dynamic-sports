@@ -1,0 +1,22 @@
+# Node
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Git
+.git
+.gitignore
+
+# Env
+.env
+
+# Dev
+.vscode
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large media (optional)
+*.mp4
+*.pdf

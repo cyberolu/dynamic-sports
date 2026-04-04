@@ -2,12 +2,14 @@
   "name": "dynamic-sports",
   "version": "1.0.0",
   "description": "Dynamic Sports website",
+  "type": "module",
   "scripts": {
-    "start": "echo \"No build step\""
+    "start": "node server/server.js"
   },
   "author": "cyberolu",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.19.2",
     "firebase-admin": "^13.7.0"
   }
 }
