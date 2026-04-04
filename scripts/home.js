@@ -75,7 +75,7 @@ async function loadLatestNews() {
 
       newsContainer.innerHTML += `
         <div class="news-thumb"
-            onclick="window.location.href='/news/${d.slug || docSnap.id}'">
+            onclick="window.location.href='/news_item/index.html?slug=${d.slug || docSnap.id}'">
 
           <img src="${d.imageURL || 'assets/default-avatar.png'}" 
               class="news-image"

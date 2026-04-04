@@ -1,2 +1,5 @@
-/news/  /news/index.html 200
+# OG + backend (for Facebook)
 /news/*  https://backend-winter-pond-2073.fly.dev/news/:splat 200!
+
+# FRONTEND PAGE
+/news/*  /news_item/index.html 200
