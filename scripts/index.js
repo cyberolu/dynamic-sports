@@ -47,7 +47,7 @@ async function loadNews() {
     const d = doc.data();
 
     container.innerHTML += `
-      <div class="news-thumb" onclick="window.location.href='news_item.html?id=${doc.id}'">
+      <div class="news-thumb" onclick="window.location.href='/news/${d.slug || doc.id}'">
         <img src="${d.imageURL}" alt="${d.title}">
         <div class="news-info">
           <h3>${d.title}</h3>
