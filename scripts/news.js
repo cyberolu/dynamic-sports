@@ -19,26 +19,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 🔒 Safe image fallback
-function safeImage(url, alt = "") {
-  if (!url) {
-    return `
-      <div class="no-image" style="
-        width:120px;
-        height:120px;
-        background:#222;
-        border-radius:10px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        color:#666;
-        font-size:0.8rem;
-      ">No Image</div>
-    `;
-  }
-  return `<img src="${url}" alt="${alt}">`;
-}
-
+// ==========================================
+// 📰 LOAD NEWS
+// ==========================================
 async function loadNews() {
   const container = document.getElementById("newsDisplay");
   if (!container) return;
@@ -62,23 +45,26 @@ async function loadNews() {
 
     snap.forEach((docSnap) => {
       const d = docSnap.data();
-      
 
       const desc = (d.desc || "").trim();
-      const preview = desc.length > 100
-        ? `${desc.substring(0, 100)}…`
-        : desc;
+      const preview =
+        desc.length > 100 ? `${desc.substring(0, 100)}…` : desc;
+
+      const slug = d.slug || docSnap.id;
 
       container.innerHTML += `
         <div class="news-thumb"
-            onclick="window.location.href='/news_item/index.html?slug=${d.slug || docSnap.id}'">
-          <img src="${d.imageURL || '../assets/default-avatar.png'}"
-              class="news-image"
-              alt="${d.title}">
+            onclick="window.location.href='/news/${slug}'">
+
+          <img src="${d.imageURL || 'assets/default-avatar.png'}"
+               class="news-image"
+               alt="${d.title}">
+
           <div class="news-info">
             <h3>${d.title || "Untitled"}</h3>
             <p>${preview}</p>
           </div>
+
         </div>
       `;
     });

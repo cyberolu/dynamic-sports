@@ -25,24 +25,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Helper — safe image renderer
-function safeImage(url) {
-  if (!url || url === "null" || url === null || url === undefined) {
-    return `<div class="no-image" style="
-      width:120px;
-      height:120px;
-      background:#222;
-      border-radius:10px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#666;
-      font-size:0.8rem;
-    ">No Image</div>`;
-  }
-  return `<img src="${url}" alt="" />`;
-}
-
 // ==========================================
 // 📰 LOAD LATEST NEWS
 // ==========================================
@@ -70,19 +52,20 @@ async function loadLatestNews() {
 
     snapshot.forEach(docSnap => {
       const d = docSnap.data();
-     
 
+      // ✅ CRITICAL: USE SLUG SYSTEM
+      const slug = d.slug || docSnap.id;
 
       newsContainer.innerHTML += `
         <div class="news-thumb"
-            onclick="window.location.href='/news_item/index.html?slug=${d.slug || docSnap.id}'">
+            onclick="window.location.href='/news/${slug}'">
 
           <img src="${d.imageURL || 'assets/default-avatar.png'}" 
-              class="news-image"
-              alt="${d.title}">
+               class="news-image"
+               alt="${d.title}">
 
           <div class="news-info">
-            <h3>${d.title}</h3>
+            <h3>${d.title || "Untitled"}</h3>
             <p>${(d.desc || "").substring(0, 120)}...</p>
           </div>
 
@@ -106,7 +89,12 @@ async function loadCompetitions() {
   list.innerHTML = "<div class='muted'>Loading competitions...</div>";
 
   try {
-    const q = query(collection(db, "competitions"), orderBy("createdAt", "desc"), limit(5));
+    const q = query(
+      collection(db, "competitions"),
+      orderBy("createdAt", "desc"),
+      limit(5)
+    );
+
     const snap = await getDocs(q);
 
     if (snap.empty) {
@@ -115,16 +103,23 @@ async function loadCompetitions() {
     }
 
     list.innerHTML = "";
+
     snap.forEach(docSnap => {
       const d = docSnap.data();
 
       list.innerHTML += `
-        <div class="news-thumb" onclick="window.location.href='competition_item/index.html?id=${docSnap.id}'">
-          <img src="${d.imageURL}" class="news-image" alt="${d.title}">
+        <div class="news-thumb"
+            onclick="window.location.href='competition_item/index.html?id=${docSnap.id}'">
+
+          <img src="${d.imageURL}" 
+               class="news-image"
+               alt="${d.name}">
+
           <div class="news-info">
             <h3>${d.name}</h3>
             <p>${d.date} — ${d.location}</p>
           </div>
+
         </div>
       `;
     });
@@ -135,8 +130,9 @@ async function loadCompetitions() {
   }
 }
 
-
-// RUN
+// ==========================================
+// 🚀 RUN ON LOAD
+// ==========================================
 document.addEventListener("DOMContentLoaded", () => {
   loadLatestNews();
   loadCompetitions();

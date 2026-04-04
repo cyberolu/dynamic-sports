@@ -1,5 +1,5 @@
 // ==========================================
-// 📰 STORY PAGE — CLIENT RENDERER (SLUG BASED)
+// 📰 STORY PAGE — CLIENT RENDERER (FINAL)
 // ==========================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
@@ -8,7 +8,9 @@ import {
   collection,
   query,
   where,
-  getDocs
+  getDocs,
+  doc,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // ==========================================
@@ -27,27 +29,21 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // ==========================================
-// 📌 Read slug from URL
+// 📌 GET SLUG FROM URL
 // ==========================================
 let slug = null;
 
-// CLEAN URL SUPPORT
 const path = window.location.pathname;
-
-// remove trailing slash
 const cleanPath = path.endsWith("/") ? path.slice(0, -1) : path;
-
-// split path
 const parts = cleanPath.split("/");
 slug = parts[parts.length - 1];
 
-// fallback for old ?id=
+// fallback (?id=)
 if (!slug || slug === "news_item" || slug === "index.html") {
   const params = new URLSearchParams(window.location.search);
   slug = params.get("id");
 }
 
-// root container (ONLY ONCE)
 const root = document.getElementById("app");
 
 if (!slug) {
@@ -56,73 +52,97 @@ if (!slug) {
 }
 
 // ==========================================
-// 🔎 Fetch story from Firestore (FIXED)
+// 🔎 FETCH STORY (FAST + RELIABLE)
 // ==========================================
-const q = query(
+let story = null;
+
+// 1️⃣ Try slug
+const slugQuery = query(
   collection(db, "news"),
   where("slug", "==", slug)
 );
 
-const snap = await getDocs(q);
+const slugSnap = await getDocs(slugQuery);
 
-if (snap.empty) {
+if (!slugSnap.empty) {
+  story = slugSnap.docs[0].data();
+} else {
+  // 2️⃣ fallback: direct document ID
+  const docRef = doc(db, "news", slug);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    story = docSnap.data();
+  }
+}
+
+if (!story) {
   root.innerHTML = "<p class='muted'>Story not found.</p>";
   throw new Error("No matching story");
 }
 
-const story = snap.docs[0].data();
+// ==========================================
+// 🧱 RENDER STORY
+// ==========================================
 
-// ==========================================
-// 🧱 Render page (STRUCTURE MATTERS)
-// ==========================================
+// Safe image selection
+const image =
+  story.featuredImage ||
+  story.imageURL ||
+  story.image ||
+  "";
+
+// Safe date
+const date =
+  story.createdAt?.toDate
+    ? story.createdAt.toDate().toLocaleDateString()
+    : "";
+
+// Content fallback
+const content =
+  (story.content || story.desc || "").replace(/\n/g, "<br>");
+
 root.innerHTML = `
-
-  <!-- STORY -->
   <main class="wrap">
     <article class="card news-story">
+
       <h1>${story.title || "Untitled"}</h1>
 
-      ${
-        story.createdAt?.toDate
-          ? `<p class="muted small">
-               ${story.createdAt.toDate().toLocaleDateString()}
-             </p>`
-          : ""
-      }
+      ${date ? `<p class="muted small">${date}</p>` : ""}
 
-      ${story.featuredImage 
-        ? `<img class="news-full-image" src="${story.featuredImage}" alt="${story.title}">`
-        : story.imageURL && !story.imageURL.includes("logo")
-        ? `<img class="news-full-image" src="${story.imageURL}" alt="${story.title}">`
-        : ""
-      }
+      ${image ? `<img class="news-full-image" src="${image}" alt="${story.title}">` : ""}
 
       <div class="news-content">
-        ${(story.content || story.desc || "")
-          .replace(/\n/g, "<br>")}
+        ${content}
       </div>
+
     </article>
 
-    <!-- ✅ BACK BUTTON — FIXED POSITION -->
     <div class="back-wrapper">
-      <a href="/news/" class="back-bottom">← Back to News</a>
+      <a href="/news.html" class="back-bottom">← Back to News</a>
     </div>
   </main>
 `;
 
 // ==========================================
-// 🧭 Load nav AFTER DOM exists
+// 🧭 NAV LOAD
 // ==========================================
 import("../scripts/nav.js");
 
 // ==========================================
-// 🔗 Optional share support (clipboard-safe)
+// 🔗 SHARE BUTTON (CORRECT DOMAIN)
 // ==========================================
 const shareBtn = document.getElementById("shareBtn");
+
 if (shareBtn) {
   shareBtn.onclick = async () => {
-    const url = `https://backend-winter-pond-2073.fly.dev/news/${slug}`;
-    await navigator.clipboard.writeText(url);
-    alert("Story link copied!");
+    const url = `https://www.dynamic-athletics.com/news/${slug}`;
+
+    try {
+      await navigator.clipboard.writeText(url);
+      alert("Story link copied!");
+    } catch {
+      alert(url);
+    }
   };
 }

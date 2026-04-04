@@ -39,13 +39,19 @@ app.get("/", (req, res) => {
 });
 
 /* ================================
+   ✅ FIXED: NEWS ROOT ROUTE
+================================ */
+app.get("/news", (req, res) => {
+  res.redirect("https://www.dynamic-athletics.com/news.html");
+});
+
+/* ================================
    🔥 NEWS ROUTE (SLUG BASED)
 ================================ */
 app.get("/news/:slug", async (req, res) => {
   const slug = req.params.slug;
 
   try {
-    // ✅ FIND BY SLUG (NEW)
     const snapshot = await db
       .collection("news")
       .where("slug", "==", slug)
@@ -62,10 +68,13 @@ app.get("/news/:slug", async (req, res) => {
     const title = article.title || "Dynamic Athletics";
     const description = article.desc || "Latest news";
     const image =
+      article.featuredImage ||
       article.image ||
+      article.imageURL ||
       "https://www.dynamic-athletics.com/assets/logo.png";
 
-    const url = `https://backend-winter-pond-2073.fly.dev/news/${slug}`;
+    // ✅ FIXED: correct domain
+    const url = `https://www.dynamic-athletics.com/news/${slug}`;
 
     res.set("Content-Type", "text/html");
 
@@ -89,12 +98,12 @@ app.get("/news/:slug", async (req, res) => {
 <body>
 
 <script>
-  window.location.href = "https://www.dynamic-athletics.com/news.html?slug=${slug}";
+  window.location.href = "https://www.dynamic-athletics.com/news/${slug}";
 </script>
 
 <noscript>
   <p>Open article:</p>
-  <a href="https://www.dynamic-athletics.com/news.html?slug=${slug}">
+  <a href="https://www.dynamic-athletics.com/news/${slug}">
     Click here
   </a>
 </noscript>
