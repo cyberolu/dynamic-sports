@@ -106,57 +106,6 @@ async function uploadToCloudinary(file, preset) {
 const CLOUDINARY_PRESET_NEWS = "dynamicnews";
 const CLOUDINARY_PRESET_COMP = "dynamiccompetitions";
 
-// =====================================================
-// NEWS — ADD (UPDATED FOR FB PREVIEWS)
-// =====================================================
-document.getElementById("addNewsBtn").onclick = async () => {
-  const title = document.getElementById("newsTitle").value.trim();
-  const summary = document.getElementById("newsSummary").value.trim();
-  const content = document.getElementById("newsContent").value.trim();
-  const file = document.getElementById("newsFeaturedImage").files[0];
-
-  // Guard: force proper preview data
-  if (!title || !summary || !file) {
-    alert("Title, summary, and featured image are required.");
-    return;
-  }
-
-  try {
-    // Upload featured image
-    const imageURL = await uploadToCloudinary(file, CLOUDINARY_PRESET_NEWS);
-
-    // Create slug from title
-    const slug = title
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)+/g, "");
-
-    // Save article
-    await addDoc(collection(db, "news"), {
-      title,
-      summary,
-      content,
-      slug,
-      featuredImage: imageURL,
-      createdAt: serverTimestamp()
-    });
-
-    // Reset form
-    document.getElementById("newsTitle").value = "";
-    document.getElementById("newsSummary").value = "";
-    document.getElementById("newsContent").value = "";
-    document.getElementById("newsFeaturedImage").value = "";
-
-    alert("Article published.");
-    loadNews();
-
-  } catch (err) {
-    console.error(err);
-    alert("Failed to publish article.");
-  }
-};
-
 
 // =====================================================
 // NEWS — LOAD + DELETE
@@ -205,7 +154,76 @@ async function loadNews() {
     };
   });
 }
+// =====================================================
+// NEWS — ADD (UPDATED FOR FB PREVIEWS + CLEAN SLUGS)
+// =====================================================
 
+function generateSlug(title) {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")   // remove special chars
+    .replace(/\s+/g, "-")       // spaces to hyphens
+    .replace(/-+/g, "-")        // collapse multiple hyphens
+    .replace(/^-+|-+$/g, "");   // trim hyphens
+}
+
+async function ensureUniqueSlug(baseSlug) {
+  let slug = baseSlug;
+  let counter = 1;
+
+  while (true) {
+    const q = query(collection(db, "news"), where("slug", "==", slug));
+    const snap = await getDocs(q);
+
+    if (snap.empty) return slug;
+
+    slug = `${baseSlug}-${counter}`;
+    counter++;
+  }
+}
+
+document.getElementById("addNewsBtn").onclick = async () => {
+  const title = document.getElementById("newsTitle").value.trim();
+  const summary = document.getElementById("newsSummary").value.trim();
+  const content = document.getElementById("newsContent").value.trim();
+  const file = document.getElementById("newsFeaturedImage").files[0];
+
+  if (!title || !summary || !file) {
+    alert("Title, summary, and featured image are required.");
+    return;
+  }
+
+  try {
+    const imageURL = await uploadToCloudinary(file, CLOUDINARY_PRESET_NEWS);
+
+    const baseSlug = generateSlug(title);
+    const slug = await ensureUniqueSlug(baseSlug);
+
+    await addDoc(collection(db, "news"), {
+      title,
+      summary,
+      desc: summary,
+      content,
+      slug,
+      featuredImage: imageURL,
+      image: imageURL,
+      imageURL: imageURL,
+      createdAt: serverTimestamp()
+    });
+
+    document.getElementById("newsTitle").value = "";
+    document.getElementById("newsSummary").value = "";
+    document.getElementById("newsContent").value = "";
+    document.getElementById("newsFeaturedImage").value = "";
+
+    alert("Article published.");
+    loadNews();
+  } catch (err) {
+    console.error(err);
+    alert("Failed to publish article.");
+  }
+};
 // =====================================================
 // COMPETITIONS — ADD
 // =====================================================
