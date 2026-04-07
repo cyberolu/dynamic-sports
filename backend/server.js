@@ -74,34 +74,42 @@ app.get("/news/:slug", async (req, res) => {
 
     const url = `https://www.dynamic-athletics.com/news/${slug}`;
 
-    res.send(`<!DOCTYPE html>
-<html lang="en">
+    const userAgent = (req.headers["user-agent"] || "").toLowerCase();
+
+    const isBot =
+      userAgent.includes("facebookexternalhit") ||
+      userAgent.includes("facebot") ||
+      userAgent.includes("twitterbot") ||
+      userAgent.includes("whatsapp") ||
+      userAgent.includes("linkedinbot") ||
+      userAgent.includes("slackbot") ||
+      userAgent.includes("discordbot");
+
+    // 🤖 BOT → return OG tags ONLY
+    if (isBot) {
+      return res.send(`<!DOCTYPE html>
+<html>
 <head>
   <meta charset="utf-8">
   <title>${title}</title>
 
-  <!-- Open Graph -->
   <meta property="og:title" content="${title}">
   <meta property="og:description" content="${description}">
   <meta property="og:image" content="${image}">
   <meta property="og:url" content="${url}">
   <meta property="og:type" content="article">
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-
-  <script>
-    // 🔥 Delay allows Facebook to read OG tags before redirect
-    setTimeout(() => {
-      window.location.href = "/news_item/index.html?slug=${slug}";
-    }, 100);
-  </script>
 </head>
-
-<body>
-  <p>Loading article...</p>
-</body>
+<body></body>
 </html>`);
+    }
+
+    // 👤 USER → proper redirect (NO JS)
+    return res.redirect(
+      `https://www.dynamic-athletics.com/news_item/index.html?slug=${slug}`
+    );
+
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
