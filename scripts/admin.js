@@ -162,10 +162,10 @@ function generateSlug(title) {
   return title
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, "")   // remove special chars
-    .replace(/\s+/g, "-")       // spaces to hyphens
-    .replace(/-+/g, "-")        // collapse multiple hyphens
-    .replace(/^-+|-+$/g, "");   // trim hyphens
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .substring(0, 80); // 🔥 limit length
 }
 
 async function ensureUniqueSlug(baseSlug) {

@@ -45,26 +45,32 @@ async function loadNews() {
 
     snap.forEach((docSnap) => {
       const d = docSnap.data();
-
+    
+      // 🚨 ensure slug exists
+      if (!d.slug) {
+        console.warn("Missing slug for:", docSnap.id);
+        return;
+      }
+    
+      const slug = d.slug;
+    
       const desc = (d.desc || "").trim();
       const preview =
         desc.length > 100 ? `${desc.substring(0, 100)}…` : desc;
-
-      const slug = d.slug || docSnap.id;
-
+    
       container.innerHTML += `
         <div class="news-thumb"
             onclick="window.location.href='/news/${slug}'">
-
+    
           <img src="${d.imageURL || 'assets/default-avatar.png'}"
                class="news-image"
                alt="${d.title}">
-
+    
           <div class="news-info">
             <h3>${d.title || "Untitled"}</h3>
             <p>${preview}</p>
           </div>
-
+    
         </div>
       `;
     });
