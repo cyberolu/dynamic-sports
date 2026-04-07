@@ -1,2 +1,8 @@
+# 📰 News list page
 /news     /news.html 200
-/news/*   /news_item/index.html 200
+
+# 🤖 Facebook bots → backend
+/news/*  https://backend-wild-rain-2605.fly.dev/news/:splat 200!  Condition=User-Agent:facebookexternalhit
+
+# 🧠 Normal users → frontend
+/news/*  /news_item/index.html 200
