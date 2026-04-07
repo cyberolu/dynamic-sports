@@ -1,5 +1,5 @@
 // ==========================================
-// 📰 STORY PAGE — CLIENT RENDERER (FINAL)
+// 📰 STORY PAGE — CLIENT RENDERER (FINAL CLEAN)
 // ==========================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
@@ -82,7 +82,7 @@ if (!story) {
 }
 
 // ==========================================
-// 🧱 RENDER STORY
+// 🧱 PREP DATA
 // ==========================================
 const image =
   story.featuredImage ||
@@ -98,6 +98,9 @@ const date =
 const content =
   (story.content || story.desc || "").replace(/\n/g, "<br>");
 
+// ==========================================
+// 🧱 RENDER STORY (FIXED STRUCTURE)
+// ==========================================
 root.innerHTML = `
   <main class="wrap">
     <article class="card news-story">
@@ -112,25 +115,26 @@ root.innerHTML = `
         ${content}
       </div>
 
-    </article>
+      <!-- 🔥 SHARE SECTION -->
+      <div class="article-actions">
 
-    <!-- 🔥 SHARE + BACK -->
-    <div class="article-actions">
+        <button id="shareNewsBtn" class="btn share-btn">
+          Share
+        </button>
 
-      <button id="shareNewsBtn" class="btn share-btn">
-        Share
-      </button>
+        <div class="share-links">
+          <a id="fbShare" target="_blank">Facebook</a>
+          <a id="waShare" target="_blank">WhatsApp</a>
+          <a id="twShare" target="_blank">Twitter</a>
+        </div>
 
-      <div class="share-links">
-        <a id="fbShare" target="_blank">Facebook</a>
-        <a id="waShare" target="_blank">WhatsApp</a>
-        <a id="twShare" target="_blank">Twitter</a>
+        <a href="/news.html" class="back-bottom">
+          ← Back to News
+        </a>
+
       </div>
 
-      <a href="/news.html" class="back-bottom">← Back to News</a>
-
-    </div>
-
+    </article>
   </main>
 `;
 
@@ -140,14 +144,14 @@ root.innerHTML = `
 import("../scripts/nav.js");
 
 // ==========================================
-// 🔗 SHARE BUTTON (SMART)
+// 🔗 SHARE BUTTON (SMART SHARE)
 // ==========================================
 const shareBtn = document.getElementById("shareNewsBtn");
 
 if (shareBtn) {
   shareBtn.onclick = async () => {
     const url = `https://www.dynamic-athletics.com/news/${slug}`;
-    const title = document.title;
+    const title = story.title || "Dynamic Athletics";
 
     if (navigator.share) {
       try {
@@ -164,7 +168,7 @@ if (shareBtn) {
 // 🔗 DIRECT SHARE LINKS
 // ==========================================
 const shareUrl = `https://www.dynamic-athletics.com/news/${slug}`;
-const shareTitle = document.title;
+const shareTitle = story.title || "Dynamic Athletics";
 
 // Facebook
 const fb = document.getElementById("fbShare");
