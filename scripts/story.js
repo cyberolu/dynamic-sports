@@ -41,7 +41,9 @@ slug = parts[parts.length - 1];
 // fallback (?id=)
 if (!slug || slug === "news_item" || slug === "index.html") {
   const params = new URLSearchParams(window.location.search);
-  slug = params.get("id");
+
+  // ✅ FIX: read slug properly
+  slug = params.get("slug") || params.get("id");
 }
 
 const root = document.getElementById("app");
