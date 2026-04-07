@@ -38,11 +38,9 @@ const cleanPath = path.endsWith("/") ? path.slice(0, -1) : path;
 const parts = cleanPath.split("/");
 slug = parts[parts.length - 1];
 
-// fallback (?id=)
+// fallback (?slug= or ?id=)
 if (!slug || slug === "news_item" || slug === "index.html") {
   const params = new URLSearchParams(window.location.search);
-
-  // ✅ FIX: read slug properly
   slug = params.get("slug") || params.get("id");
 }
 
@@ -54,11 +52,11 @@ if (!slug) {
 }
 
 // ==========================================
-// 🔎 FETCH STORY (FAST + RELIABLE)
+// 🔎 FETCH STORY
 // ==========================================
 let story = null;
 
-// 1️⃣ Try slug
+// Try slug
 const slugQuery = query(
   collection(db, "news"),
   where("slug", "==", slug)
@@ -69,7 +67,7 @@ const slugSnap = await getDocs(slugQuery);
 if (!slugSnap.empty) {
   story = slugSnap.docs[0].data();
 } else {
-  // 2️⃣ fallback: direct document ID
+  // fallback to document ID
   const docRef = doc(db, "news", slug);
   const docSnap = await getDoc(docRef);
 
@@ -86,21 +84,17 @@ if (!story) {
 // ==========================================
 // 🧱 RENDER STORY
 // ==========================================
-
-// Safe image selection
 const image =
   story.featuredImage ||
   story.imageURL ||
   story.image ||
   "";
 
-// Safe date
 const date =
   story.createdAt?.toDate
     ? story.createdAt.toDate().toLocaleDateString()
     : "";
 
-// Content fallback
 const content =
   (story.content || story.desc || "").replace(/\n/g, "<br>");
 
@@ -120,9 +114,23 @@ root.innerHTML = `
 
     </article>
 
-    <div class="back-wrapper">
+    <!-- 🔥 SHARE + BACK -->
+    <div class="article-actions">
+
+      <button id="shareNewsBtn" class="btn share-btn">
+        Share
+      </button>
+
+      <div class="share-links">
+        <a id="fbShare" target="_blank">Facebook</a>
+        <a id="waShare" target="_blank">WhatsApp</a>
+        <a id="twShare" target="_blank">Twitter</a>
+      </div>
+
       <a href="/news.html" class="back-bottom">← Back to News</a>
+
     </div>
+
   </main>
 `;
 
@@ -132,19 +140,46 @@ root.innerHTML = `
 import("../scripts/nav.js");
 
 // ==========================================
-// 🔗 SHARE BUTTON (CORRECT DOMAIN)
+// 🔗 SHARE BUTTON (SMART)
 // ==========================================
-const shareBtn = document.getElementById("shareBtn");
+const shareBtn = document.getElementById("shareNewsBtn");
 
 if (shareBtn) {
   shareBtn.onclick = async () => {
     const url = `https://www.dynamic-athletics.com/news/${slug}`;
+    const title = document.title;
 
-    try {
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, url });
+      } catch {}
+    } else {
       await navigator.clipboard.writeText(url);
-      alert("Story link copied!");
-    } catch {
-      alert(url);
+      alert("Link copied!");
     }
   };
+}
+
+// ==========================================
+// 🔗 DIRECT SHARE LINKS
+// ==========================================
+const shareUrl = `https://www.dynamic-athletics.com/news/${slug}`;
+const shareTitle = document.title;
+
+// Facebook
+const fb = document.getElementById("fbShare");
+if (fb) {
+  fb.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+}
+
+// WhatsApp
+const wa = document.getElementById("waShare");
+if (wa) {
+  wa.href = `https://wa.me/?text=${encodeURIComponent(shareTitle + " " + shareUrl)}`;
+}
+
+// Twitter
+const tw = document.getElementById("twShare");
+if (tw) {
+  tw.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`;
 }
