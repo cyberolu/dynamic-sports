@@ -107,7 +107,7 @@ app.get("/news/:slug", async (req, res) => {
 
     // 👤 USER → proper redirect (NO JS)
     return res.redirect(
-      `https://www.dynamic-athletics.com/news_item/index.html?slug=${slug}`
+      `https://www.dynamic-athletics.com/news_item/?slug=${slug}`
     );
 
   } catch (err) {
