@@ -46,7 +46,7 @@ app.get("/news", (req, res) => {
 });
 
 /* ================================
-   🔥 NEWS ARTICLE ROUTE (FINAL FIX)
+   🔥 NEWS ARTICLE ROUTE (FINAL)
 ================================ */
 app.get("/news/:slug", async (req, res) => {
   const slug = req.params.slug;
@@ -74,20 +74,7 @@ app.get("/news/:slug", async (req, res) => {
 
     const url = `https://www.dynamic-athletics.com/news/${slug}`;
 
-    // 🔍 DETECT SOCIAL BOTS
-    const userAgent = req.headers["user-agent"] || "";
-
-    const isBot =
-      userAgent.includes("facebookexternalhit") ||
-      userAgent.includes("Facebot") ||
-      userAgent.includes("Twitterbot") ||
-      userAgent.includes("WhatsApp");
-
-    /* ================================
-       🤖 BOT → SHOW OG TAGS ONLY
-    ================================= */
-    if (isBot) {
-      return res.send(`<!DOCTYPE html>
+    res.send(`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -102,20 +89,19 @@ app.get("/news/:slug", async (req, res) => {
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
+
+  <script>
+    // 🔥 Delay allows Facebook to read OG tags before redirect
+    setTimeout(() => {
+      window.location.href = "/news_item/index.html?slug=${slug}";
+    }, 100);
+  </script>
 </head>
+
 <body>
-  <h1>${title}</h1>
+  <p>Loading article...</p>
 </body>
 </html>`);
-    }
-
-    /* ================================
-       👤 USER → REDIRECT TO FRONTEND
-    ================================= */
-    return res.redirect(
-      `https://www.dynamic-athletics.com/news_item/index.html?slug=${slug}`
-    );
-
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
@@ -126,5 +112,5 @@ app.get("/news/:slug", async (req, res) => {
    START SERVER
 ================================ */
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log("🚀 Server running on port " + PORT);
 });
